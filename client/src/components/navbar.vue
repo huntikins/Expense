@@ -8,7 +8,7 @@
       <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="username" placeholder="Username" aria-label="Username">
         <input class="form-control mr-sm-2" type="password" placeholder="Password" aria-label="Password">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign in</button>
       </form>
     </div>
   </nav>
@@ -24,5 +24,9 @@ export default {
 <style scoped>
 .btn-outline-success{
   color: #85F2A0;
+}
+.btn-outline-success:hover {
+  color: #163840;
+  background-color: #85F2A0;
 }
 </style>
