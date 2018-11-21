@@ -18,11 +18,11 @@ module.exports = {
   },
   update: (req, res) => {
     res.json({
-      msg: 'Update One: ${req.params.id}',
+      msg: `Update One: ${req.params.id}`,
     });
   },
   delete: (req, res) => {
-    db.Example.destroy({where: {id: req.params.id}}).then((results) => {
+    db.Example.destroy({ where: { id: req.params.id } }).then((results) => {
       res.json(results);
     });
   },

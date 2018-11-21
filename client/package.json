@@ -8,7 +8,9 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "aws-sdk": "^2.360.0",
     "chart.js": "^2.7.3",
+    "multer-s3": "^2.9.0",
     "vue": "^2.5.17"
   },
   "devDependencies": {
