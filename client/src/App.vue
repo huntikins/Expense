@@ -1,16 +1,22 @@
 <template>
   <div id="app">
     <navbar></navbar>
+    <jumbotron></jumbotron>
+    <homebody></homebody>
   </div>
 </template>
 
 <script>
 import navbar from './components/navbar.vue'
+import jumbotron from './components/jumbotron.vue'
+import homebody from './components/homebody.vue'
 
 export default {
   name: 'app',
   components: {
-    navbar
+    navbar,
+    jumbotron,
+    homebody
   }
 }
 </script>
@@ -21,6 +27,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #163840;
 }
+
 </style>
