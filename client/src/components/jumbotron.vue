@@ -1,13 +1,13 @@
 <template>
     <div class="jumbotron">
-        <h1 class="expense">Expense.</h1>
-        <h3 class="sub-title">define your wallet</h3>
+        <h1 class="expense">{{ title }}</h1>
+        <h3 v-if="this.$props.subtitle" class="sub-title">{{ subtitle }}</h3>
     </div>
 </template>
 
 <script>
 export default {
-
+    props: ['title', 'subtitle']
 }
 </script>
 

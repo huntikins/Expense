@@ -6,7 +6,7 @@ const path = require('path');
 const flash = require('connect-flash');
 const cookieParser = require('cookie-parser');
 
-// const User = require('../models/user');
+const User = require('../controllers/authentication');
 
 //=====================================================
 // Configure Passport

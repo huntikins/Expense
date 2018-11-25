@@ -1,43 +1,37 @@
 <template>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4">
-                <div class="row">
-                    <div class="col-lg-12 mb-1">
-                        <i class="fas fa-4x fa-file-invoice-dollar"></i>
-                    </div>
+    <div>
+        <jumbotron title="Join us!"></jumbotron>
+        <div class="container">
+            <form>
+                <div class="form-group">
+                    <label for="username">Email address</label>
+                    <input class="form-control" id="username" placeholder="Create a username...">
                 </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h2>TEST</h2>
-                    </div>
+                <div class="form-group">
+                    <label for="passsword">Password</label>
+                    <input type="password" class="form-control" id="password" placeholder="Create a password...">
                 </div>
-            </div>
-            <div class="col-lg-4">
-                <h2 class="header">Join us!</h2>
-                <p>Sign up for free and get ready to watch your wallet reach to new hights!</p>
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Create Account</button>
-            </div>
-            <div class="col-lg-4">
-                <div class="row">
-                    <div class="col-lg-12 mb-1">
-                        <i class="fas fa-4x fa-piggy-bank"></i>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet blanditiis obcaecati delectus nam veniam doloremque iusto tempora commodi harum minima modi, nisi sint autem laudantium vel fugiat, tempore quibusdam earum.</p>
-                    </div>
-                </div>
-            </div>
+                <button id="submit-create-account" type="submit" class="btn btn-outline-success my-2 my-sm-0" @click="submit">Submit</button>
+            </form>
         </div>
     </div>
 </template>
 
 <script>
-export default {
+// Vue script
+import jumbotron from './jumbotron.vue'
 
+export default {
+    components: {
+        jumbotron
+    },
+    methods: {
+        submit: event => {
+            event.preventDefault();
+        }
+    }
 }
+
 </script>
 
 <style>
