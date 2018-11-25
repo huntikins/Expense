@@ -1,5 +1,11 @@
 const express = require('express');
-const db = require('./models');
+const passport = require('passport');
+
+// const db = require('./models');
+// Run passport configuration
+const passportConfig = require('./config/authentication');
+
+passportConfig.configurePassport(passport);
 
 const PORT = process.env.PORT || 8080;
 
@@ -7,10 +13,12 @@ const server = express();
 
 const routes = require('./routes');
 
+// Configure middleware
 server.use(express.urlencoded({extended: true}));
 server.use(express.json());
 server.use(express.static('client/dist'));
 server.use(routes);
+passportConfig.configureMiddleware(server);
 
 // Catch-all route
 server.get('*', (req, res) => {
@@ -26,10 +34,10 @@ if (process.env.NODE_ENV === 'test') {
 }
 
 // Starting the server, syncing our models ------------------------------------/
-db.sequelize.sync(syncOptions).then(() => {
+// db.sequelize.sync(syncOptions).then(() => {
   server.listen(PORT, () => {
     console.log('==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.', PORT, PORT);
   });
-});
+// });
 
 module.exports = server;
