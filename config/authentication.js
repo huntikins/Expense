@@ -4,7 +4,7 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const path = require('path');
 const flash = require('connect-flash');
-const cookieParser = require('cookie-parser');
+// const cookieParser = require('cookie-parser');
 
 const User = require('../controllers/authentication');
 
@@ -14,6 +14,7 @@ exports.configurePassport = function(passport) {
     passport.use(new LocalStrategy(
         function (username, password, done) {
             User.findByUsername(username, function (err, user) {
+                console.log(err + "---" + user);
                 if (err) { return done(err); }
                 if (!user) {
                     return done(null, false, { message: 'Incorrect username.' });
@@ -28,27 +29,24 @@ exports.configurePassport = function(passport) {
     
     // Functions used by Passport to serialize user ID and store in session.
     passport.serializeUser(function (user, done) {
-        done(null, user);
+        console.log('serializing user...')
+        done(null, user.username);
     });
     
     passport.deserializeUser(function (username, done) {
         User.findByUsername(username, function (err, user) {
+            console.log('serializing user...')    
             done(err, user);
         });
     });
 }
 
 exports.configureMiddleware = function(app) {
-    app.use(cookieParser("cats"));
+    // app.use(cookieParser("cats"));
+    app.use(require('morgan')('combined'));
     app.use(flash());
-    app.use(session({ secret: "cats", resave: false, saveUninitialized: false, cookie: { maxAge: 60000 } }));
+    app.use(session({ secret: "cats", resave: false, saveUninitialized: false }));
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(passport.initialize());
     app.use(passport.session());
 }
-
-
-//================================
-// Configure middleware
-// const app = require('../server');
-
