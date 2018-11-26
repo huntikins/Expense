@@ -1,17 +1,11 @@
 <template>
   <div>
-    <div id="mySidenav" class="sidenav">
+    <div id="leftNav" class="sidenav">
       <a href="javascript:void(0)" class="closebtn" @click="closeNav">&times;</a>
-      <a href="#">About</a>
-      <a href="#">Services</a>
-      <a href="#">Clients</a>
-      <a href="#">Contact</a>
+      <a href="#">Transactions</a>
+      <a href="#">Budgets</a>
     </div>
-
-    <!-- Use any element to open the sidenav -->
-    <span @click="openNav">open</span>
-
-    <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
+    <button @click="openNav">open</button>
     <div id="main">
       <dashboard_frame></dashboard_frame>
     </div>
@@ -29,11 +23,11 @@ export default {
   },
   methods: {
     openNav: function() {
-      document.getElementById("mySidenav").style.width = "250px";
+      document.getElementById("leftNav").style.width = "250px";
       document.getElementById("main").style.marginLeft = "250px";
     },
     closeNav: function() {
-      document.getElementById("mySidenav").style.width = "0";
+      document.getElementById("leftNav").style.width = "0";
       document.getElementById("main").style.marginLeft = "0";
     }
   }
@@ -42,19 +36,17 @@ export default {
 
 <style>
 .sidenav {
-    height: 100%; /* 100% Full-height */
-    width: 0; /* 0 width - change this with JavaScript */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Stay on top */
-    top: 0; /* Stay at the top */
+    height: 100%; 
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
     left: 0;
-    background-color: #111; /* Black*/
-    overflow-x: hidden; /* Disable horizontal scroll */
-    padding-top: 60px; /* Place content 60px from the top */
-    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    background-color: #111;
+    overflow-x: hidden; 
+    padding-top: 60px;
+    transition: 0.5s;
 }
-
-/* The navigation menu links */
 .sidenav a {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
@@ -63,13 +55,9 @@ export default {
     display: block;
     transition: 0.3s;
 }
-
-/* When you mouse over the navigation links, change their color */
 .sidenav a:hover {
     color: #f1f1f1;
 }
-
-/* Position and style the close button (top right corner) */
 .sidenav .closebtn {
     position: absolute;
     top: 0;
@@ -77,14 +65,10 @@ export default {
     font-size: 36px;
     margin-left: 50px;
 }
-
-/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
 #main {
     transition: margin-left .5s;
     padding: 20px;
 }
-
-/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
