@@ -71,4 +71,7 @@ export default {
 #message {
   color: red;
 }
+.text-white {
+    color: #f1f1f1 !important;
+}
 </style>
