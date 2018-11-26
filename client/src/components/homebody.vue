@@ -1,6 +1,5 @@
 <template>
     <div>
-        <jumbotron title="Expense." subtitle="define your wallet"></jumbotron>
         <div class="container">
             <div class="row">
                 <div class="col-lg-4">
@@ -38,10 +37,9 @@
 </template>
 
 <script>
-import jumbotron from './jumbotron.vue'
 
 export default {
-    components: {jumbotron}
+
 }
 </script>
 
