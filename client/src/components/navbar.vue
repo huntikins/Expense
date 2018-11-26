@@ -28,4 +28,7 @@ export default {
   color: #163840;
   background-color: #85F2A0;
 }
+.text-white {
+    color: #f1f1f1 !important;
+}
 </style>

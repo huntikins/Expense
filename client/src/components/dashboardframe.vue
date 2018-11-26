@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="row">
             <div id="greeting" class="col-12 pt-2">
-                <h2>Lets take a look at your wallet {{ userName }}</h2>
+                <h2 class="sub-title">Lets take a quick look at your expenses {{ name }}.</h2>
             </div>
         </div>
         <div class="row">
@@ -27,7 +27,7 @@
 <script>
 export default {
     data: () => ({
-        userName: "Elon Musk"
+        name: "Elon"
     })
 }
 </script>
