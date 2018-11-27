@@ -19,4 +19,7 @@ export default {
   text-align: center;
   color: #163840;
 }
+.bg-dark {
+  background-color: #163840 !important;
+}
 </style>
