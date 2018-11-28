@@ -2,12 +2,12 @@
     <div class="modal fade" id="createBudget" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                    <div class="modal-header">
-                            <h5 class="modal-title">Add Budget</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <a aria-hidden="true">&times;</a>
-                                </button>
-                        </div>
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Budget</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <a aria-hidden="true">&times;</a>
+                    </button>
+                </div>
                 <div class="modal-body">
                     <div class="container-fluid">
                         <div class="row">
