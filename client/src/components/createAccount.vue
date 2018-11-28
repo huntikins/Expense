@@ -1,5 +1,6 @@
 <template>
     <div>
+      <navbar></navbar>
         <jumbotron title="Join us!"></jumbotron>
         <div class="container">
             <form>
@@ -22,10 +23,12 @@
 // Vue script
 import jumbotron from "./jumbotron.vue";
 import axios from "axios";
+import navbar from './navbar.vue'
 
 export default {
   components: {
-    jumbotron
+    jumbotron,
+    navbar
   },
   methods: {
     submitNewUser: function(event) {

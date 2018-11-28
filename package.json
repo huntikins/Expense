@@ -33,5 +33,6 @@
     "passport-local": "^1.0.0",
     "sequelize": "^4.41.2",
     "vuefire": "^2.0.0-alpha.16"
-  }
+  },
+  "devDependencies": {}
 }
