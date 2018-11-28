@@ -1,5 +1,7 @@
 <template>
     <div class="container">
+        <!-- Modal -->
+        <createBudgetModal></createBudgetModal>
         <div class="row">
             <div id="greeting" class="col-12 p-2">
                 <h2 class="sub-title">Lets take a quick look at your expenses {{ name }}.</h2>
@@ -25,7 +27,7 @@
                         <h1 class="text-white">Upcoming Bills</h1>
                     </div>
                     <div class="card-body">
-                        <!--insert upcoming bills div here-->
+                        <h1>Nothing yet!</h1>
                     </div>
                     <div class="card-footer">
                     </div>
@@ -55,7 +57,7 @@
                         <budgetdash></budgetdash>
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn-outline-success my-2 my-sm-0">Create Budget</button>
+                        <button class="btn btn-outline-success my-2 my-sm-0"  data-toggle="modal" data-target="#createBudget">Create Budget</button>
                     </div>
                 </div>
             </div>
@@ -65,12 +67,19 @@
 
 <script>
 import budgetdash from './budgetdash.vue'
+import createBudgetModal from './createBudgetModal.vue'
 export default {
     data: () => ({
         name: "Elon"
     }),
     components: {
-        budgetdash
+        budgetdash,
+        createBudgetModal
+    },
+    methods: {
+        newBudget: function(event){
+          this.modal = true  
+        }
     }
 }
 </script>
