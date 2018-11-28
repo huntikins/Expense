@@ -1,37 +1,85 @@
 <template>
-    <div class="container-fluid">
+    <div class="container">
         <div class="row">
-            <div id="greeting" class="col-12 pt-2">
+            <div id="greeting" class="col-12 p-2">
                 <h2 class="sub-title">Lets take a quick look at your expenses {{ name }}.</h2>
             </div>
         </div>
-        <div class="row">
-            <div class="col">
-                <!--insert translog div here-->
+        <div class="row m-4">
+            <div class="col-lg-6 col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="text-white">Recent Transactions</h1>
+                    </div>
+                    <div class="card-body">
+                        <!--insert translog div here-->
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-outline-success my-2 my-sm-0">Create Transaction</button>
+                    </div>
+                </div>
             </div>
-            <div class="col">
-                <!--insert upcoming bills div here-->
+            <div class="col-lg-6 col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="text-white">Upcoming Bills</h1>
+                    </div>
+                    <div class="card-body">
+                        <!--insert upcoming bills div here-->
+                    </div>
+                    <div class="card-footer">
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col">
-                <!--insert receiptdiv here-->
+        <div class="row m-4">
+            <div class="col-lg-6 col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="text-white">Captured Receipts</h1>
+                    </div>
+                    <div class="card-body">
+                        <!--insert receiptdiv here-->
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-outline-success my-2 my-sm-0">Capture Reciept</button>
+                    </div>
+                </div>
             </div>
-            <div class="col">
-                <!--insert budgetdiv here-->
+            <div class="col-lg-6 col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="text-white">Monthly Budget</h1>
+                    </div>
+                    <div class="card-body">
+                        <budgetdash></budgetdash>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-outline-success my-2 my-sm-0">Create Budget</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import budgetdash from './budgetdash.vue'
 export default {
     data: () => ({
         name: "Elon"
-    })
+    }),
+    components: {
+        budgetdash
+    }
 }
 </script>
 
 <style scoped>
-
+.card-header, .card-footer {
+    background-color: #163840;
+}
+.card {
+    border: 1px solid #163840;
+}
 </style>
