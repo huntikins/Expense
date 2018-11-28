@@ -4,8 +4,14 @@
         <div class="chart--dev">
             <ul class="chart--horiz">
                 <li class="chart__bar" 
+<<<<<<< HEAD
                     :style="{ width: budget.current*100/budget.limit }"
                     v-for="budget in budgets">
+=======
+                    :style="{ width: budget.current*100/budget.limit + '%' }"
+                    v-for="budget in budgets"
+                    >
+>>>>>>> master
                 <span class="chart__label">
                     ${{ budget.limit - budget.current }} left for {{ budget.type }}
                 </span>
