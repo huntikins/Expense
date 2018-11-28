@@ -71,3 +71,6 @@ typings/
 
 # Serverless directories
 .serverless
+
+#Firebase service
+.config/expense-6e43c-firebase-adminsdk-b6aox-444849a1c9.json

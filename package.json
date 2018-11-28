@@ -25,14 +25,13 @@
     "dotenv": "^6.1.0",
     "express": "^4.16.4",
     "express-session": "^1.15.6",
-    "firebase": "^5.5.9",
+    "firebase-admin": "^6.2.0",
     "if-env": "^1.0.4",
     "morgan": "^1.9.1",
     "mysql2": "^1.6.4",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "sequelize": "^4.41.2",
-    "vuefire": "^2.0.0-alpha.16"
+    "sequelize": "^4.41.2"
   },
   "devDependencies": {}
 }

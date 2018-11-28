@@ -5,8 +5,7 @@
             <ul class="chart--horiz">
                 <li class="chart__bar" 
                     :style="{ width: budget.current*100/budget.limit }"
-                    v-for="budget in budgets"
-                    >
+                    v-for="budget in budgets">
                 <span class="chart__label">
                     ${{ budget.limit - budget.current }} left for {{ budget.type }}
                 </span>
