@@ -1,7 +1,9 @@
-{
+require('dotenv').config();
+
+module.exports = {
   "development": {
     "username": "root",
-    "password": "Bike592677",
+    "password": process.env.LOCAL_DB_PASSWORD,
     "database": "expense_db",
     "host": "localhost",
     "dialect": "mysql"
@@ -9,7 +11,7 @@
   "test": {
     "username": "root",
     "password": null,
-    "database": "testdb",
+    "database": "expense_db",
     "host": "localhost",
     "dialect": "mysql",
     "logging": false

@@ -33,6 +33,9 @@ export default {
         })
         .then(res => {
           console.log(res);
+          if (res.data === true) {
+            self.$router.push('/dashboard');
+          }
           self.message = res.data;
         })
         .catch(err => console.error(err));

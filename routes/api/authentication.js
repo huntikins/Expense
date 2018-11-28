@@ -29,6 +29,7 @@ router.get('/fail', (req, res) => {
 router.get('/test-login',
     require('connect-ensure-login').ensureLoggedIn('/api/authentication/fail'),
     function(req, res) {
+        console.log(req.user);
         res.send({ success: true, message: 'You are authenticated' })
     }
 );
