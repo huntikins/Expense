@@ -1,7 +1,7 @@
 const router = require('express').Router(); // eslint-disable-line new-cap
-const noteRoutes = require('./examples');
+const expenseRoutes = require('./expense');
 const authRoutes = require('./authentication');
-router.use('/examples', noteRoutes);
+router.use('/expense', expenseRoutes);
 router.use('/authentication', authRoutes);
 
 module.exports = router;

@@ -1,4 +1,4 @@
-const users = require('../models/user');
+const users = require('../models/users');
 
 module.exports = {
     findByUsername: (username, cb) => {
