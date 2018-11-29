@@ -1,58 +1,52 @@
-
 <template>
-    <div class="charts">
-        <div class="chart--dev">
-            <ul class="chart--horiz">
-                <li class="chart__bar" 
-<<<<<<< HEAD
-                    :style="{ width: budget.current*100/budget.limit }"
-                    v-for="budget in budgets">
-=======
-                    :style="{ width: budget.current*100/budget.limit + '%' }"
-                    v-for="budget in budgets"
-                    >
->>>>>>> master
-                <span class="chart__label">
-                    ${{ budget.limit - budget.current }} left for {{ budget.type }}
-                </span>
-                </li>
-            </ul>
-        </div>
+  <div class="charts">
+    <div class="chart--dev">
+      <ul class="chart--horiz">
+        <li
+          class="chart__bar"
+          :style="{ width: budget.current*100/budget.limit }"
+          v-for="budget in budgets"
+        >
+          <span class="chart__label">${{ budget.limit - budget.current }} left for {{ budget.type }}</span>
+        </li>
+      </ul>
     </div>
+  </div>
 </template>
 
 <script>
 export default {
-    data() {
-        return {
-            budgets: [{
-                type: 'Gas',
-                limit: 200,
-                current: 100,
-                //percent: current*100/limit
-            },
-            {
-                type: 'Groceries',
-                limit: 400,
-                current: 175,
-                //percent: current*100/limit
-            },
-            {
-                type: 'Entertainment',
-                limit: 200,
-                current: 50,
-                //percent: current*100/limit
-            },
-            {
-                type: 'Lesiure',
-                limit: 50,
-                current: 25,
-                //percent: current*100/limit
-            }
-            ]
+  data() {
+    return {
+      budgets: [
+        {
+          type: "Gas",
+          limit: 200,
+          current: 100
+          //percent: current*100/limit
+        },
+        {
+          type: "Groceries",
+          limit: 400,
+          current: 175
+          //percent: current*100/limit
+        },
+        {
+          type: "Entertainment",
+          limit: 200,
+          current: 50
+          //percent: current*100/limit
+        },
+        {
+          type: "Lesiure",
+          limit: 50,
+          current: 25
+          //percent: current*100/limit
         }
-    }
-}
+      ]
+    };
+  }
+};
 </script>
 
 <style>
@@ -81,7 +75,7 @@ export default {
   height: 30px;
   margin-bottom: 10px;
 
-  background: linear-gradient(to left, #85F2A0, #50BF80);
+  background: linear-gradient(to left, #85f2a0, #50bf80);
   border-top-right-radius: $border-rad;
   border-bottom-right-radius: $border-rad;
   opacity: 0;
