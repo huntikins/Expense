@@ -1,6 +1,6 @@
 <template>
   <div>
-    <navbar></navbar>
+    <navbar isLoggedIn="false"></navbar>
     <jumbotron></jumbotron>
     <homebody></homebody>
   </div>

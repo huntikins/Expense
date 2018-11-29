@@ -11,18 +11,21 @@ const User = require('../controllers/authentication');
 //=====================================================
 // Configure Passport
 exports.configurePassport = function(passport) {
-    passport.use(new LocalStrategy(
-        function (username, password, done) {
-            User.findByUsername(username, function (err, user) {
+    passport.use(new LocalStrategy({
+            usernameField: 'email'
+        },
+        function (email, password, done) {
+            User.findByEmail(email, function (err, user) {
                 console.log(err + "---" + user);
                 if (err) { return done(err); }
                 if (!user) {
-                    return done(null, false, { message: 'Incorrect username.' });
+                    return done(null, false, { message: 'Incorrect email.' });
                 }
                 if (user.password !== password) {
                     return done(null, false, { message: 'Incorrect password.' });
                 }
-                return done(null, user);
+                console.log('user: ' + JSON.stringify(user));
+                done(null, user);
             });
         }
     ));
@@ -30,12 +33,15 @@ exports.configurePassport = function(passport) {
     // Functions used by Passport to serialize user ID and store in session.
     passport.serializeUser(function (user, done) {
         console.log('serializing user...')
-        done(null, user.username);
+        console.log("-->" + JSON.stringify(user))
+        console.log((user.email))
+        done(null, user.email);
     });
     
-    passport.deserializeUser(function (username, done) {
-        User.findByUsername(username, function (err, user) {
-            console.log('serializing user...')    
+    passport.deserializeUser(function (email, done) {
+        User.findByEmail(email, function (err, user) {
+            console.log('deserializing user...')
+            console.log(user)
             done(err, user);
         });
     });
