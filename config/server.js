@@ -1,5 +1,6 @@
 const express = require('express');
 const passport = require('passport');
+const dotenv = require('dotenv');
 
 // const db = require('./models');
 // Run passport configuration
@@ -29,5 +30,6 @@ if (process.env.NODE_ENV === 'test') {
 module.exports = {
   passport,
   server,
-  PORT
+  PORT,
+  syncOptions
 }

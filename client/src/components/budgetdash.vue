@@ -1,47 +1,50 @@
 <template>
-  <div class="charts">
-    <div class="chart--dev">
-      <ul class="chart--horiz">
-        <li
-          class="chart__bar"
-          :style="{ width: budget.current*100/budget.limit }"
-          v-for="budget in budgets"
-        >
-          <span class="chart__label">${{ budget.limit - budget.current }} left for {{ budget.type }}</span>
-        </li>
-      </ul>
+    <div class="charts">
+        <div class="chart--dev">
+            <ul class="chart--horiz">
+                <li class="chart__bar" 
+                    :style="{ width: budget.current*100/budget.limit + '%' }"
+                    v-for="budget in budgets"
+                    >
+                <span class="chart__label">
+                    {{ budget.type }}
+                </span>
+                </li>
+            </ul>
+        </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      budgets: [
-        {
-          type: "Gas",
-          limit: 200,
-          current: 100
-          //percent: current*100/limit
-        },
-        {
-          type: "Groceries",
-          limit: 400,
-          current: 175
-          //percent: current*100/limit
-        },
-        {
-          type: "Entertainment",
-          limit: 200,
-          current: 50
-          //percent: current*100/limit
-        },
-        {
-          type: "Lesiure",
-          limit: 50,
-          current: 25
-          //percent: current*100/limit
+    data() {
+        return {
+            budgets: [{
+                type: 'Gas',
+                limit: 200,
+                current: 100,
+                //percent: current*100/limit
+            },
+            {
+                type: 'Groceries',
+                limit: 400,
+                current: 275,
+                //percent: current*100/limit
+            },
+            {
+                type: 'Entertainment',
+                limit: 200,
+                current: 195,
+                //percent: current*100/limit
+            },
+            {
+                type: 'Lesiure',
+                limit: 50,
+                current: 15,
+                //percent: current*100/limit
+            }
+            ]
         }
       ]
     };
@@ -94,7 +97,7 @@ export default {
 }
 .chart__label {
   line-height: 30px;
-  color: white;
+  color: #163840;
 }
 @keyframes anim-lightspeed-in {
   0% {
