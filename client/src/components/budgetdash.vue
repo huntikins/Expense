@@ -8,7 +8,7 @@
                     v-for="budget in budgets"
                     >
                 <span class="chart__label">
-                    ${{ budget.limit - budget.current }} left for {{ budget.type }}
+                    {{ budget.type }}
                 </span>
                 </li>
             </ul>
@@ -29,19 +29,19 @@ export default {
             {
                 type: 'Groceries',
                 limit: 400,
-                current: 175,
+                current: 275,
                 //percent: current*100/limit
             },
             {
                 type: 'Entertainment',
                 limit: 200,
-                current: 50,
+                current: 195,
                 //percent: current*100/limit
             },
             {
                 type: 'Lesiure',
                 limit: 50,
-                current: 25,
+                current: 15,
                 //percent: current*100/limit
             }
             ]
@@ -95,7 +95,7 @@ export default {
 }
 .chart__label {
   line-height: 30px;
-  color: white;
+  color: #163840;
 }
 @keyframes anim-lightspeed-in {
   0% {
