@@ -14,10 +14,13 @@
                         <h1 class="text-white">Recent Transactions</h1>
                     </div>
                     <div class="card-body">
+                        <translog></translog>
                         <!--insert translog div here-->
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn-outline-success my-2 my-sm-0">Create Transaction</button>
+                        <button class="btn btn-outline-success my-2 my-sm-0 float-left">Create Transaction</button>
+                        <button class="btn btn-outline-success my-2 my-sm-0">Delete Transaction</button>
+                        <button class="btn btn-outline-success my-2 my-sm-0 float-right" @click="editTrans">Edit Transaction</button>
                     </div>
                 </div>
             </div>
@@ -68,17 +71,19 @@
 <script>
 import budgetdash from './budgetdash.vue'
 import createBudgetModal from './createBudgetModal.vue'
+import translog from './translog.vue'
 export default {
     data: () => ({
-        name: "Elon"
+        name: "Elon",
     }),
     components: {
         budgetdash,
-        createBudgetModal
+        createBudgetModal,
+        translog
     },
     methods: {
         newBudget: function(event){
-          this.modal = true  
+            this.modal = true  
         }
     }
 }
@@ -90,5 +95,13 @@ export default {
 }
 .card {
     border: 1px solid #163840;
+}
+.trans {
+    overflow-y: scroll;
+    height: 200px;
+}
+.transInfo {
+    padding: 0;
+    margin: 0;
 }
 </style>
