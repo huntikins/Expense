@@ -1,8 +1,5 @@
 require('dotenv').config();
 const keys = process.env;
-
-const multer = require('multer');
-const multerS3 = require('multer-s3');
 const aws = require('aws-sdk');
 
 aws.config.update({
@@ -17,13 +14,12 @@ module.exports = {
     upload: (image) => {
         buf = new Buffer(image.replace(/^data:image\/\w+;base64,/, ""), 'base64')
         var data = {
-            Key: 'key1234w1',
+            Key: Date.now(),
             Body: buf,
             ContentEncoding: 'base64',
             ContentType: 'image/png'
         };
 
-        // bucket.putObject(data, function (err, data) {
         s3Bucket.upload(data, function (err, data) {
             if (err) {
                 console.log(err);
