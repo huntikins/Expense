@@ -10,10 +10,8 @@ server.use(routes);
 server.get('*', (req, res) => {
   res.redirect('/');
 });
-
+const fs = require('fs');
 // Starting the server, syncing our models ------------------------------------/
-// db.sequelize.sync(syncOptions).then(() => {
-  server.listen(PORT, () => {
-    console.log('==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.', PORT, PORT);
-  });
-// });
+server.listen(PORT, () => {
+  console.log('==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.', PORT, PORT);
+});
