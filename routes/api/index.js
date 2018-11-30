@@ -8,6 +8,6 @@ router.use('/examples', noteRoutes);
 router.use('/authentication', authRoutes);
 router.use('/budget', budgetRoutes);
 router.use('/category', categoryRoutes)
-router.use('/transactions'), transRoutes);
+router.use('/transactions', transRoutes);
 
 module.exports = router;
