@@ -27,13 +27,17 @@ export default {
     testLogin: function(event) {
       event.preventDefault();
       const self = this;
-      self.$api
-        .get('/api/authentication/test-login')
+      axios
+        .post("/api/budget", {
+          categoryId: 1,
+          amount: 200.2
+        })
         .then(res => {
           console.log(res);
           if (res.data === true) {
             self.$router.push('/');
           }
+          self.message = res.data;
         })
         .catch(err => console.error(err));
     }
