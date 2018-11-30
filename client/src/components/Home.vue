@@ -24,12 +24,10 @@ export default {
     axios
       .get("/api/authentication/test-login")
       .then(res => {
-        console.log(res);
         if (res.data.success === true) {
           self.$router.push('/dashboard');
         }
-      })
-      .catch(err => console.error(err));
+      });
   }
 }
 </script>
