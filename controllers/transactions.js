@@ -45,7 +45,7 @@ module.exports = {
         }).then(results => res.json(results));
     },
 
-    Update: (req, res) => {
+    update: (req, res) => {
         db.Transaction.update({
             description: req.body.description,
             amount: req.body.amount,
