@@ -1,6 +1,6 @@
 <template>
   <div class="content-frame">
-    <dashboardnav></dashboardnav>
+    <navbar isLoggedIn="true"></navbar>
     <div id="main">
       <dashboardframe></dashboardframe>
     </div>
@@ -9,13 +9,13 @@
 
 <script>
 import dashboardframe from './dashboardframe.vue'
-import dashboardnav from './dashboardnav.vue'
+import navbar from './navbar.vue'
 
 export default {
   name: 'dashboard',
   components: {
     dashboardframe,
-    dashboardnav
+    navbar
   }
 }
 </script>

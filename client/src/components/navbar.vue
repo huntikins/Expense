@@ -5,56 +5,26 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" v-model="username" type="username" placeholder="Username" aria-label="Username">
-        <input class="form-control mr-sm-2" v-model="password" type="password" placeholder="Password" aria-label="Password">
-        <button class="btn btn-outline-success my-2 my-sm-0" @click="submitLogin" type="submit">Sign in</button>
-        <span v-if="message" id="message"><br><br>{{ message }}</span>
-      </form>
-      <button class="btn btn-outline-success my-2 my-sm-0" @click="testLogin">TEST</button>
+    <span v-if="isLoggedIn === 'true'">
+      <logout-form></logout-form>
+    </span>
+    <span v-else>
+      <login-form></login-form>
+    </span>
     </div>
   </nav>
 </template>
 
 <script>
-import axios from 'axios';
+import loginForm from './loginForm';
+import logoutForm from './logoutForm';
 
 export default {
-  methods: {
-    submitLogin: function(event) {
-      event.preventDefault();
-      if (!this.username) return (this.message = "You must enter a username.");
-      if (!this.password) return (this.message = "You must enter a password.");
-      const self = this;
-      axios
-        .post("/api/authentication/login", {
-          username: this.username,
-          password: this.password
-        })
-        .then(res => {
-          console.log(res);
-          self.message = res.data;
-        })
-        .catch(err => console.error(err));
-    },
-    testLogin: function(event) {
-      event.preventDefault();
-      const self = this;
-      self.$api
-        .get('/api/authentication/test-login')
-        .then(res => {
-          console.log(res);
-        })
-        .catch(err => console.error(err));
-    }
+  components: {
+    loginForm,
+    logoutForm
   },
-  data() {
-    return {
-      username: "",
-      password: "",
-      message: ""
-    };
-  }
+  props: ['isLoggedIn']
 };
 </script>
 

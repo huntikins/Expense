@@ -1,12 +1,20 @@
 <template>
     <div>
-      <navbar></navbar>
+        <navbar></navbar>
         <jumbotron title="Join us!"></jumbotron>
         <div class="container">
             <form>
                 <div class="form-group">
-                    <label for="username">Username</label>
-                    <input class="form-control" id="username" v-model="username" placeholder="Create a username..." required>
+                    <label for="firstname">First name</label>
+                    <input class="form-control" id="firstname" v-model="firstname" placeholder="Enter your first name..." required>
+                </div>
+                  <div class="form-group">
+                    <label for="lastname">Last name</label>
+                    <input class="form-control" id="lastname" v-model="lastname" placeholder="Enter your last name..." required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input class="form-control" id="email" v-model="email" placeholder="Enter your email..." required>
                 </div>
                 <div class="form-group">
                     <label for="passsword">Password</label>
@@ -33,13 +41,16 @@ export default {
   methods: {
     submitNewUser: function(event) {
       event.preventDefault();
-      if (!this.username) return (this.message = "You must enter a username.");
+      if (!this.email) return (this.message = "You must enter an email address.");
       if (!this.password) return (this.message = "You must create a password.");
+      if (!this.firstname || !this.lastname) return (this.message = "Please provide a first and last name.");
       const self = this;
       axios
         .post("/api/authentication/signup", {
-          username: this.username,
-          password: this.password
+          email: this.email,
+          password: this.password,
+          firstname: this.firstname,
+          lastname: this.lastname
         })
         .then(res => {
           self.message = res.data;
@@ -49,9 +60,11 @@ export default {
   },
   data() {
     return {
-      username: "",
+      email: "",
       password: "",
-      message: ""
+      message: "",
+      firstname: "",
+      lastname: ""
     };
   }
 };
