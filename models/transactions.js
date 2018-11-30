@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-module.exports = function (sequelize, DataTypes) {
-=======
 module.exports = function(sequelize, DataTypes) {
->>>>>>> master
   const transactions_Id = sequelize.define('transactions_Id', {
     categoryId: DataTypes.INTEGER,
     description: DataTypes.STRING,
