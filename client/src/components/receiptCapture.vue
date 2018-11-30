@@ -32,7 +32,7 @@ export default {
     },
     savePic: function() {
       axios
-        .post("/api/gCloudStore/create", {
+        .post("/api/aws/create", {
           note: this.note,
           photo: this.capture,
         })
