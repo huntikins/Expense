@@ -1,5 +1,5 @@
 const router = require('express').Router(); // eslint-disable-line new-cap
-const transactionsController = require('../../controllers/transactions');
+const transactionsController = require('../../controllgit -helpers/transactions');
 require('../../config/server');
 require('../../controllers/passport');
 

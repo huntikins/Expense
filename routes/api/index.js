@@ -1,21 +1,20 @@
 const router = require('express').Router(); // eslint-disable-line new-cap
 const noteRoutes = require('./examples');
 const authRoutes = require('./authentication');
-<<<<<<< HEAD
 const awsRoutes = require('./awsRoute');
 
-router.use('/examples', noteRoutes);
-router.use('/authentication', authRoutes);
-router.use('/aws', awsRoutes);
-=======
 const budgetRoutes = require('./budget');
-const categoryRoutes = require('/category');
+const categoryRoutes = require('./category');
 const transRoutes = require('./transactions');
+
 router.use('/examples', noteRoutes);
 router.use('/authentication', authRoutes);
 router.use('/budget', budgetRoutes);
 router.use('/category', categoryRoutes)
-router.use('/transactions'), transRoutes);
->>>>>>> master
+router.use('/transactions', transRoutes);
+
+router.use('/examples', noteRoutes);
+router.use('/authentication', authRoutes);
+router.use('/aws', awsRoutes);
 
 module.exports = router;
