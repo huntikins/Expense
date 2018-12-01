@@ -6,7 +6,7 @@
                 <th scope="col">Ammount</th>
                 <th scope="col">Date</th>
                 <th scope="col">Receipt</th>
-                <th v-show="update=true"><input type="checkbox"></th>
+                <th v-if="update==true">Select</th>
             </tr>
         </thead>
         <tbody>
@@ -16,7 +16,7 @@
                 <td>{{ trans.date }}</td>
                 <td v-if="trans.receipt == true"><i class="fas fa-receipt"></i></td>
                 <td v-else>none</td>
-                <td v-if="update=true"><input type="checkbox"></td>
+                <td v-if="update==true"><input type="checkbox"></td>
             </tr>
         </tbody> 
     </table>
@@ -25,9 +25,9 @@
 <script>
 import dashboardframe from './dashboardframe.vue'
 export default {
+    update: false,
     data(){
         return {
-            update: false,
             transactions: [
             {
                 title: "Barnes & Noble",
