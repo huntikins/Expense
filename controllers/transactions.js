@@ -14,7 +14,7 @@ module.exports = {
             }
         }).then(result => {
             if (result) {
-                db.Category.update({
+                db.Transaction.update({
                     description: req.body.description,
                     amount: req.body.amount,
                     isPaid: req.body.isPaid,
@@ -25,7 +25,7 @@ module.exports = {
                     }
                 }).then(result => res.json(result));
             } else {
-                db.Category.create({
+                db.Transaction.create({
                     transactionId: req.body.transactionId,
                     description: req.body.description,
                     amount: req.body.amount,
@@ -45,7 +45,7 @@ module.exports = {
         }).then(results => res.json(results));
     },
 
-    Update: (req, res) => {
+    update: (req, res) => {
         db.Transaction.update({
             description: req.body.description,
             amount: req.body.amount,
