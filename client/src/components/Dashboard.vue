@@ -2,7 +2,7 @@
   <div class="content-frame">
     <navbar isLoggedIn="true" :userEmail="userEmail"></navbar>
     <div id="main">
-      <dashboardframe></dashboardframe>
+      <dashboardframe :userFirstname="userFirstname"></dashboardframe>
     </div>
   </div>
 </template>
