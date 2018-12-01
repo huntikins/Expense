@@ -18,10 +18,6 @@ export default {
       if (!this.email) return (this.message = "You must enter an email address.");
       if (!this.password) return (this.message = "You must enter a password.");
       const self = this;
-      console.log({
-          email: this.email,
-          password: this.password
-        });
       axios
         .post("/api/authentication/login", {
           email: this.email,

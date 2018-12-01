@@ -84,18 +84,15 @@ export default {
         translog,
         createTransactionModal
     },
-<<<<<<< HEAD
-    computed: {
-        editTrans: function(event) {
-            update = true
-=======
+    // computed: {
+    //     editTrans: function(event) {
+    //         update = true
     methods: {
         newBudget: function(event){
             this.modal = true  
         },
         editTrans: function() {
-            
->>>>>>> master
+            this.update = true
         }
     }
 }
