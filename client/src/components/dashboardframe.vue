@@ -16,7 +16,7 @@
                             <h1 class="text-white">Upcoming Bills</h1>
                         </div>
                         <div class="card-body">
-                            <h1>Nothing yet!</h1>
+                            <upcomingbills></upcomingbills>
                         </div>
                         <div class="card-footer">
                         </div>
@@ -76,17 +76,16 @@ import budgetdash from './budgetdash.vue'
 import createBudgetModal from './createBudgetModal.vue'
 import translog from './translog.vue'
 import createTransactionModal from './createTransactionModal.vue'
+import upcomingbills from './upcomingBills.vue'
 export default {
     props: ['userFirstname'],
     components: {
         budgetdash,
         createBudgetModal,
         translog,
-        createTransactionModal
+        createTransactionModal,
+        upcomingbills
     },
-    // computed: {
-    //     editTrans: function(event) {
-    //         update = true
     methods: {
         newBudget: function(event){
             this.modal = true  
