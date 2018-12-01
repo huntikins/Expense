@@ -4,7 +4,7 @@
         <createBudgetModal></createBudgetModal>
         <div class="row">
             <div id="greeting" class="col-12 p-2">
-                <h2 class="sub-title">Lets take a quick look at your expenses {{ name }}.</h2>
+                <h2 class="sub-title">Lets take a quick look at your expenses {{ userFirstname }}.</h2>
             </div>
         </div>
         <div class="row m-4">
@@ -73,9 +73,7 @@ import budgetdash from './budgetdash.vue'
 import createBudgetModal from './createBudgetModal.vue'
 import translog from './translog.vue'
 export default {
-    data: () => ({
-        name: "Elon",
-    }),
+    props: ['userFirstname'],
     components: {
         budgetdash,
         createBudgetModal,
@@ -84,6 +82,9 @@ export default {
     methods: {
         newBudget: function(event){
             this.modal = true  
+        },
+        editTrans: function() {
+            
         }
     }
 }
