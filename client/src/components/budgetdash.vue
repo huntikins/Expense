@@ -16,36 +16,101 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
+    newObj: {},
+    type: "",
+    limit: "",
+    current: "",
+    categories: [
+            {
+            name:'Rent/Mortgage',
+            id: 1
+            },
+            {
+            name:'Utilities',
+            id: 2
+            },
+            {
+            name:'Entertainment',
+            id: 3
+            },
+            {
+            name:'Misc. Food',
+            id: 4
+            },
+            {
+            name:'Groceries',
+            id: 5
+            },
+            {
+            name:'Gas',
+            id: 6
+            },
+            {
+            name:'Mobile',
+            id: 7
+            },
+            {
+            name:'Subscriptions',
+            id: 8
+            },
+            {
+            name:'Clothing',
+            id: 9
+            },
+            {
+            name:'Charity',
+            id: 10
+            },
+            {
+            name:'Leisure',
+            id: 11
+            },
+            {
+            name:'Health',
+            id: 12
+            },
+            {
+            name:'Credit Card/Loan',
+            id: 13
+            },
+            {
+            name:'Deposit',
+            id: 14
+            },
+            {
+            name:'Withdrawal',
+            id: 15
+            }
+        ],
     data() {
         return {
-            budgets: [{
-                type: 'Gas',
-                limit: 200,
-                current: 100,
-                //percent: current*100/limit
-            },
-            {
-                type: 'Groceries',
-                limit: 400,
-                current: 275,
-                //percent: current*100/limit
-            },
-            {
-                type: 'Entertainment',
-                limit: 200,
-                current: 195,
-                //percent: current*100/limit
-            },
-            {
-                type: 'Lesiure',
-                limit: 50,
-                current: 15,
-                //percent: current*100/limit
-            }
-            ]
+            budgets: [],
+            errors: []
         }
-  }
+  },
+  methods: {
+    /*getBudgetInfo: function() {
+            axios.get("/api/budget", {
+            }).then(res => {
+                console.log(res.data);
+                let limit = res.ammount
+                let type = categories[parseInt(res.categoryId) -1].name
+                let newObj = Object.assign({limit: limit, type: type})
+            }).catch(err => console.error(err)).then(function(){
+                axios.get("/api/transactions").then( res=> {
+                  let total = res.array[categoryId-1]
+                  let newObj = Object.assign({current: total - limit})
+              })
+            }).catch(err => console.error(err)).then(function(){
+              budgets.push(newObj)
+            });
+        }*/
+  },
+  /*mounted(){
+    this.getBudgetInfo()
+  }*/
 };
 </script>
 
