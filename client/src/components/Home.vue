@@ -27,7 +27,7 @@ export default {
         if (res.data.success === true) {
           self.$router.push('/dashboard');
         }
-      });
+      }).catch(() => {});
   }
 }
 </script>
