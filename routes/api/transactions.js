@@ -18,4 +18,9 @@ router.put('/',
     transactionsController.update
 );
 
+router.post('/newReceipt',
+    require('connect-ensure-login').ensureLoggedIn('/api/authentication/fail'),
+    transactionsController.createReceipt
+);
+
 module.exports = router;

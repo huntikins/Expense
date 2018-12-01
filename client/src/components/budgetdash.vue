@@ -1,4 +1,3 @@
-
 <template>
     <div class="charts">
         <div class="chart--dev">
@@ -46,8 +45,8 @@ export default {
             }
             ]
         }
-    }
-}
+  }
+};
 </script>
 
 <style>
@@ -76,7 +75,7 @@ export default {
   height: 30px;
   margin-bottom: 10px;
 
-  background: linear-gradient(to left, #85F2A0, #50BF80);
+  background: linear-gradient(to left, #85f2a0, #50bf80);
   border-top-right-radius: $border-rad;
   border-bottom-right-radius: $border-rad;
   opacity: 0;
