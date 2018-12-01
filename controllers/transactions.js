@@ -38,7 +38,7 @@ module.exports = {
     },
 
     findAll: (req, res) => {
-        db.Catgeory.findAll({
+        db.Transaction.findAll({
             where: {
                 id: req.user.id
             }
