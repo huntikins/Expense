@@ -22,9 +22,24 @@ module.exports = {
     findAll: (req, res) => {
         db.Transaction.findAll({
             where: {
-                id: req.user.id
+                userId: req.user.id
             }
         }).then(results => res.json(results));
+    },
+
+    getCategoryTotals: (req, res) => {
+        let categoryTotals = [];
+        for (i = 0; i < 14; i++) categoryTotals.push(0);
+        db.Transaction.findAll({
+            where: {
+                userId: req.user.id
+            }
+        }).then(results => {
+            results.forEach(transaction => {
+                if (transaction.categoryId) categoryTotals[transaction.categoryId] += parseFloat(transaction.amount);
+            });
+            res.json(categoryTotals);
+        });
     },
 
     update: (req, res) => {
