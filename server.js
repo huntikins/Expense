@@ -11,7 +11,7 @@ server.use(routes);
 server.get('*', (req, res) => {
   res.redirect('/');
 });
-
+const fs = require('fs');
 // Starting the server, syncing our models ------------------------------------/
 db.sequelize.sync(serverConfig.syncOptions).then(() => {
   server.listen(PORT, () => {
