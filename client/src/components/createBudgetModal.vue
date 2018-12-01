@@ -14,9 +14,8 @@
                             <div class="col">
                                 <h5>What do you want to keep an eye on?</h5>
                                 <form>
-                                    <label class="sr-only" for="inlineFormCustomSelect">Preference</label>
                                     <select class="custom-select" id="inlineFormCustomSelect">
-                                        <option ref="type" :key="category.id"
+                                        <option :key="category.id"
                                                 v-for="category in categories">
                                                 {{ category.name }}
                                         </option>
@@ -36,7 +35,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" @click="createBudget()">Create</button>
+                    <button type="button" class="btn btn-primary" @click.prevent="createBudget()" data-dismiss="modal">Create</button>
                 </div>
             </div>
         </div>
@@ -44,7 +43,6 @@
 </template>
 
 <script>
-import categories from '../App.vue'
 import axios from 'axios'
 export default {
     data:()=> ({
@@ -117,16 +115,16 @@ export default {
         total: function () {
             return this.value
         },
-        createBudget: function(){
-            axios.post('/api/budget',{
-                categoryId: 500,
-                ammount: 500
-            }).then(response => {
-                console.log(response)
-            })
-            .catch(e => {
-                this.errors.push(e)
-            })
+        createBudget: function(event) {
+            axios.post("/api/budget", {
+                categoryId: "test",
+                amount: "test"
+            }).then(res => {
+                console.log(res);
+                if (res.data === true) {
+                    this.$router.push('/');
+                }
+            }).catch(err => console.error(err));
         }
 
     }
