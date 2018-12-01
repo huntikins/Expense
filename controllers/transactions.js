@@ -3,43 +3,24 @@ const s3 = require('../services/awsService'); //AWS S3 Service
 
 module.exports = {
     create: (req, res) => {
-        if (!req.body.transactionId || !req.body.userId) return res.status(400);
-        db.Transactions.findOne({
-            where: {
-                id: req.body.categoryId,
-                descritpion: req.body.description,
-                amount: req.body.amount,
-                isPaid: req.body.isPaid,
-                isRecurring: req.body.isRecurring,
-                imageUrl: req.body.imageUrl
-            }
-        }).then(result => {
-            if (result) {
-                db.Transaction.update({
-                    description: req.body.description,
-                    amount: req.body.amount,
-                    isPaid: req.body.isPaid,
-                    isRecurring: req.body.isRecurring
-                }, {
-                        where: {
-                            id: req.body.Id
-                        }
-                    }).then(result => res.json(result));
-            } else {
-                db.Transaction.create({
-                    transactionId: req.body.transactionId,
-                    description: req.body.description,
-                    amount: req.body.amount,
-                    isPaid: req.body.isPaid,
-                    isRecurring: req.body.isRecurring,
-                    imageUrl: req.body.imageUrl
-                }).then((result) => res.json(result));
-            }
-        });
+        const newTrans = {
+            userId: req.user.id,
+            description: req.body.description || null,
+            amount: req.body.amount || null,
+            categoryId: req.body.categoryId || null,
+            date: req.body.date || null,
+            isReconciled: req.body.isReconciled || null,
+            isPaid: req.body.isPaid || null,
+            isRecurring: req.body.isRecurring || null,
+            imageUrl: req.body.imageUrl || null,
+            dueDate: req.body.dueDate || null,
+            hasReceipt: req.body.hasReceipt || null
+        }
+        db.Transaction.create(newTrans).then(result => res.json(result));
     },
 
     findAll: (req, res) => {
-        db.Catgeory.findAll({
+        db.Transaction.findAll({
             where: {
                 id: req.user.id
             }
@@ -47,16 +28,25 @@ module.exports = {
     },
 
     update: (req, res) => {
-        db.Transaction.update({
-            description: req.body.description,
-            amount: req.body.amount,
-            isPaid: req.body.isPaid,
-            isRecurring: req.body.isRecurring
-        }, {
-                where: {
-                    id: req.body.Id
-                }
-            }).then(result => res.json(result));
+        if (!req.body.id) return res.status(400);
+        const updatedTrans = {
+            userId: req.user.id,
+            description: req.body.description || null,
+            amount: req.body.amount || null,
+            categoryId: req.body.categoryId || null,
+            date: req.body.date || null,
+            isReconciled: req.body.isReconciled || null,
+            isPaid: req.body.isPaid || null,
+            isRecurring: req.body.isRecurring || null,
+            imageUrl: req.body.imageUrl || null,
+            dueDate: req.body.dueDate || null,
+            hasReceipt: req.body.hasReceipt || null
+        }
+        db.Transaction.update(updatedTrans, {
+            where: {
+                id: req.body.Id
+            }
+        })
     },
 
     createReceipt: (req, res) => {
@@ -73,4 +63,4 @@ module.exports = {
             imageUrl: imageUrl,
         }).then(result => res.json(result));
     }
-}
+};

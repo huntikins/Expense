@@ -99,9 +99,24 @@ export default {
     newBudget: function(event) {
       this.modal = true;
     },
+<<<<<<< HEAD
     editTrans: function() {}
   }
 };
+=======
+    // computed: {
+    //     editTrans: function(event) {
+    //         update = true
+    methods: {
+        newBudget: function(event){
+            this.modal = true  
+        },
+        editTrans: function() {
+            this.update = true
+        }
+    }
+}
+>>>>>>> master
 </script>
 
 <style scoped>
