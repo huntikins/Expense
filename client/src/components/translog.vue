@@ -6,7 +6,7 @@
                 <th scope="col">Ammount</th>
                 <th scope="col">Date</th>
                 <th scope="col">Receipt</th>
-                <th v-if="update==true">Select</th>
+                <!-- <th v-if="update==true">Select</th> -->
             </tr>
         </thead>
         <tbody>
@@ -14,9 +14,11 @@
                 <th scope="row">{{ trans.title }}</th>
                 <td>{{ trans.price }}</td>
                 <td>{{ trans.date }}</td>
-                <td v-if="trans.receipt == true"><i class="fas fa-receipt"></i></td>
-                <td v-else>none</td>
-                <td v-if="update==true"><input type="checkbox"></td>
+                <td>
+                    <span v-if="trans.receipt == true"><i class="fas fa-receipt"></i></span>
+                    <span v-else>none</span>
+                </td>
+                <!-- <td v-if="update==true"><input type="checkbox"></td> -->
             </tr>
         </tbody> 
     </table>
@@ -24,6 +26,8 @@
 
 <script>
 import dashboardframe from './dashboardframe.vue'
+import axios from 'axios'
+
 export default {
     update: false,
     data(){
@@ -60,6 +64,23 @@ export default {
                 receipt: true,
             }]
         }
+    },
+    beforeCreate() {
+        const self = this;
+        axios
+            .get('/api/transactions')
+            .then(res => {
+                console.log(res);
+                self.transactions = [];
+                res.data.forEach(transaction => {
+                self.transactions.push({
+                    title: transaction.description,
+                    price: transaction.amount,
+                    date: transaction.date,
+                    receipt: transaction.hasReceipt
+                });
+            });
+        });
     }
 }
 </script>

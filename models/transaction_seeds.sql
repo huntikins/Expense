@@ -1,0 +1,2 @@
+INSERT INTO transactions(`description`, `amount`, `categoryId`, `userId`, `date`, `isReconciled`, `isPaid`, `isRecurring`, `imageUrl`, `dueDate`, `hasReceipt`, `createdAt`, `updatedAt`)
+VALUES('First transaction', 90, 5, 1, CURRENT_TIME(), false, true, false, null, null, true, CURRENT_TIME(), CURRENT_TIME());
