@@ -6,7 +6,7 @@
     </button>
     <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
     <span v-if="isLoggedIn === 'true'">
-      <logout-form></logout-form>
+      <logout-form :userEmail="userEmail"></logout-form>
     </span>
     <span v-else>
       <login-form></login-form>
@@ -24,7 +24,7 @@ export default {
     loginForm,
     logoutForm
   },
-  props: ['isLoggedIn']
+  props: ['isLoggedIn', 'userEmail']
 };
 </script>
 
