@@ -1,4 +1,5 @@
 const db = require('../models');
+const s3 = require('../services/awsService'); //AWS S3 Service
 
 module.exports = {
     create: (req, res) => {
@@ -20,10 +21,10 @@ module.exports = {
                     isPaid: req.body.isPaid,
                     isRecurring: req.body.isRecurring
                 }, {
-                    where: {
-                        id: req.body.Id
-                    }
-                }).then(result => res.json(result));
+                        where: {
+                            id: req.body.Id
+                        }
+                    }).then(result => res.json(result));
             } else {
                 db.Transaction.create({
                     transactionId: req.body.transactionId,
@@ -52,9 +53,24 @@ module.exports = {
             isPaid: req.body.isPaid,
             isRecurring: req.body.isRecurring
         }, {
-            where: {
-                id: req.body.Id
-            }
+                where: {
+                    id: req.body.Id
+                }
+            }).then(result => res.json(result));
+    },
+
+    createReceipt: (req, res) => {
+        try {
+            imageUrl = s3.upload(req.body.image);
+            console.log(`public image url: ${imageUrl}`);
+        }
+        catch (err) {
+            res.status(500).send(err.message);
+        }
+
+        db.Transaction.create({
+            description: req.body.description,
+            imageUrl: imageUrl,
         }).then(result => res.json(result));
     }
 }

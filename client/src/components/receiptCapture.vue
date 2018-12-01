@@ -32,7 +32,7 @@ export default {
     },
     savePic: function() {
       axios
-        .post("/api/aws/create", {
+        .post("/api/transactions/newReceipt", {
           note: this.note,
           photo: this.capture,
         })
