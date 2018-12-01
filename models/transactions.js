@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-  const transactions_Id = sequelize.define('Transactions', {
+  const Transactions = sequelize.define('Transactions', {
     description: DataTypes.STRING,
     amount: DataTypes.DECIMAL(10, 2),
     categoryId: DataTypes.INTEGER,
@@ -14,5 +14,5 @@ module.exports = function(sequelize, DataTypes) {
     imageUrl: DataTypes.STRING,
     dueDate: DataTypes.DATE
   });
-  return transactions_Id;
+  return Transactions;
 };
