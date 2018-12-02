@@ -16,7 +16,7 @@ const server = express();
 passportConfig.configureMiddleware(server);
 server.use(express.urlencoded({ extended: true }));
 server.use(express.json({ limit: '50mb' }));
-server.use(express.static('client/public'));
+server.use(express.static('client/dist'));
 // server.use(express.bodyParser({ limit: '50mb' }));
 
 const syncOptions = { force: true };
