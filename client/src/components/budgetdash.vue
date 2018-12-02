@@ -18,10 +18,6 @@
 <script>
 import axios from 'axios'
 export default {
-    newObj: {},
-    type: "",
-    limit: "",
-    current: "",
     categories: [
             {
             name:'Rent/Mortgage',
@@ -90,27 +86,29 @@ export default {
             errors: []
         }
   },
-  methods: {
-    /*getBudgetInfo: function() {
-            axios.get("/api/budget", {
-            }).then(res => {
-                console.log(res.data);
-                let limit = res.ammount
-                let type = categories[parseInt(res.categoryId) -1].name
-                let newObj = Object.assign({limit: limit, type: type})
-            }).catch(err => console.error(err)).then(function(){
-                axios.get("/api/transactions").then( res=> {
-                  let total = res.array[categoryId-1]
-                  let newObj = Object.assign({current: total - limit})
+  beforeCreate(){
+    axios
+    .get("/api/budget")
+    .then(res => {
+        this.budgets = []
+        res.data.forEach(budget => {
+          let limit = parseInt(res.ammount)
+          let category = parseInt(res.categoryID)
+          let type = this.categories[parseInt(category) -1].name
+          axios.get("/api/transactions").then( res=> {
+            res.data.forEach(transaction =>{
+              let total = parseInt(res.categoryTotals[category])
+              let current = limit - total
+              this.budgets.push({
+                limit: limit,
+                type: type,
+                current: current,
               })
-            }).catch(err => console.error(err)).then(function(){
-              budgets.push(newObj)
-            });
-        }*/
-  },
-  /*mounted(){
-    this.getBudgetInfo()
-  }*/
+            })
+          })
+        })
+    }).catch(err => console.error(err))
+  }
 };
 </script>
 
