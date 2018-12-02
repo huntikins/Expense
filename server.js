@@ -10,7 +10,7 @@ server.use(routes);
 
 // Catch-all route
 server.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+  res.sendFile(path.join(__dirname, "client", "public", "index.html"));
 });
 // const fs = require('fs');
 
