@@ -8,9 +8,9 @@ const routes = require('./routes');
 server.use(routes);
 
 // Catch-all route
-server.get('*', (req, res) => {
-  res.redirect('/');
-});
+// server.get('*', (req, res) => {
+//   res.redirect('/');
+// });
 const fs = require('fs');
 // Starting the server, syncing our models ------------------------------------/
 db.sequelize.sync(serverConfig.syncOptions).then(() => {
