@@ -4,7 +4,7 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const path = require('path');
 const flash = require('connect-flash');
-// const cookieParser = require('cookie-parser');
+const cookieParser = require('cookie-parser');
 
 const User = require('../controllers/authentication');
 
@@ -55,4 +55,5 @@ exports.configureMiddleware = function(app) {
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(passport.initialize());
     app.use(passport.session());
+    app.use(cookieParser());
 }
