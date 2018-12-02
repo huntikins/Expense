@@ -30,15 +30,9 @@ export default {
       event.preventDefault();
       const self = this;
       axios
-        .post("/api/budget", {
-          categoryId: 1,
-          amount: 200.2
-        })
+        .get("/api/budget/category-totals")
         .then(res => {
           console.log(res);
-          if (res.data === true) {
-            self.$router.push('/');
-          }
         })
         .catch(err => console.error(err));
     }

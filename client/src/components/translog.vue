@@ -70,9 +70,9 @@ export default {
         axios
             .get('/api/transactions')
             .then(res => {
-                console.log(res);
-                self.transactions = [];
-                res.data.forEach(transaction => {
+                console.log(res)
+            self.transactions = [];
+            res.data.forEach(transaction => {
                 self.transactions.push({
                     title: transaction.description,
                     price: transaction.amount,

@@ -17,8 +17,12 @@
                     <input class="form-control" id="email" v-model="email" placeholder="Enter your email..." required>
                 </div>
                 <div class="form-group">
-                    <label for="passsword">Password</label>
+                    <label for="password">Password</label>
                     <input type="password" class="form-control" id="password" v-model="password" placeholder="Create a password..." required>
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password">Confirm Password</label>
+                    <input type="password" class="form-control" id="confirm-password" v-model="confirmPassword" placeholder="Confirm password..." required>
                 </div>
                 <button @click="submitNewUser" type="submit" class="btn btn-outline-success my-2 my-sm-0">Submit</button>
                 <p v-if="message" id="message">{{ message }}</p>
@@ -43,6 +47,7 @@ export default {
       event.preventDefault();
       if (!this.email) return (this.message = "You must enter an email address.");
       if (!this.password) return (this.message = "You must create a password.");
+      if (this.password !== this.confirmPassword) return this.message = "Your passwords did not match."
       if (!this.firstname || !this.lastname) return (this.message = "Please provide a first and last name.");
       const self = this;
       axios
@@ -62,6 +67,7 @@ export default {
     return {
       email: "",
       password: "",
+      confirmPassword: "",
       message: "",
       firstname: "",
       lastname: ""
