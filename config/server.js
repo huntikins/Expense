@@ -19,7 +19,7 @@ server.use(express.json({ limit: '50mb' }));
 server.use(express.static('client/dist'));
 // server.use(express.bodyParser({ limit: '50mb' }));
 
-const syncOptions = { force: false };
+const syncOptions = { force: true };
 
 // If running a test, set syncOptions.force to true
 // clearing the `testdb`
