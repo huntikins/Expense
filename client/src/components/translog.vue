@@ -86,5 +86,11 @@ export default {
 </script>
 
 <style>
-
+@media screen and (max-width: 767px) {
+    table {
+        display: block;
+        overflow: scroll;
+    }
+    
+}
 </style>

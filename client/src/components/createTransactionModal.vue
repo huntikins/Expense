@@ -53,7 +53,6 @@
 <script>
 import DateDropdown from 'vue-date-dropdown'
 import axios from 'axios'
-
 export default {
     components: {
         DateDropdown

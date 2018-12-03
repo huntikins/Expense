@@ -90,19 +90,87 @@ export default {
     axios
     .get("/api/budget")
     .then(res => {
+        console.log(res.data)
+        this.budgets= []
+        this.categories= [
+              {
+              name:'Rent/Mortgage',
+              id: 1
+              },
+              {
+              name:'Utilities',
+              id: 2
+              },
+              {
+              name:'Entertainment',
+              id: 3
+              },
+              {
+              name:'Misc. Food',
+              id: 4
+              },
+              {
+              name:'Groceries',
+              id: 5
+              },
+              {
+              name:'Gas',
+              id: 6
+              },
+              {
+              name:'Mobile',
+              id: 7
+              },
+              {
+              name:'Subscriptions',
+              id: 8
+              },
+              {
+              name:'Clothing',
+              id: 9
+              },
+              {
+              name:'Charity',
+              id: 10
+              },
+              {
+              name:'Leisure',
+              id: 11
+              },
+              {
+              name:'Health',
+              id: 12
+              },
+              {
+              name:'Credit Card/Loan',
+              id: 13
+              },
+              {
+              name:'Deposit',
+              id: 14
+              },
+              {
+              name:'Withdrawal',
+              id: 15
+              }
+            ],
         res.data.forEach(budget => {
           let limit = parseInt(budget.amount)
           let category = parseInt(budget.categoryId)
-          let type = this.categories[parseInt(category) +1].name
-          axios.get("/api/transactions").then( res=> {
-            res.data.forEach(transaction =>{
-              let total = parseInt(transaction.categoryTotals[category])
-              let current = limit - total
-              this.budgets.push({
-                limit: limit,
-                type: type,
-                current: current,
-              })
+          let type = this.categories[category -1].name
+          console.log(type, category, limit)
+          axios.get("/api/budget/category-totals").then( res=> {
+            console.log(res.data)
+            console.log(type, category, limit)
+            let total = parseInt(res.data[category -1])
+            let current = limit - total
+            if(current < 0){
+              current = 0
+            }
+            this.budgets.push({
+              limit: limit,
+              type: type,
+              current: current,
             })
           })
         })
