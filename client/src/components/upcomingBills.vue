@@ -5,7 +5,8 @@
                 <th class="align-middle" scope="row">{{ upcoming.date }}</th>
                 <td class="align-middle">{{ upcoming.title }}</td>
                 <td class="align-middle">${{ upcoming.price }}</td>
-                <td><button class="btn btn-outline-success my-2 my-sm-0">Paid</button></td>
+                <td><button class="btn btn-outline-success my-2 my-sm-0"
+                            @click.prevent="markAsPaid()">Paid</button></td>
             </tr>
         </tbody> 
     </table>
@@ -23,6 +24,11 @@ export default {
                     price: "99.97"
                 }
             ]
+        }
+    },
+    methods: {
+        markAsPaid: function(event){
+            //do something
         }
     },
     beforeCreate(){

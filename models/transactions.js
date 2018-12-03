@@ -4,7 +4,7 @@ module.exports = function(sequelize, DataTypes) {
     amount: DataTypes.DECIMAL(10, 2),
     categoryId: DataTypes.INTEGER,
     userId: DataTypes.INTEGER,
-    date: DataTypes.DATE,
+    date: DataTypes.STRING,
     isReconciled: DataTypes.BOOLEAN,
     isPaid: DataTypes.BOOLEAN,
     isRecurring: {
