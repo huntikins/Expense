@@ -140,6 +140,25 @@ export default {
             if (this.amount && parsedAmount.toString !== parsedAmount) return this.message = "Invalid dollar amount";
             if (this.amount && this.amount.indexOf('.') > -1 && this.amount.indexOf('.') < this.amount.length - 3) return this.message = "Invalid dollar amount";
             this.$refs.createTransModal.hide();
+        
+        // createTrans: function(event) {
+        //     axios.post("/api/transaction", {
+        //         description: document.getElementById('transTitle').innerHTML,
+        //         amount: "ADD THIS IN - forgot to add option for this on modal",
+        //         categoryId: document.getElementById('catSelect').selectedIndex +1,
+        //         date: this.selectedDate,
+        //         isReconciled: "ADD THIS IN",
+        //         isRecurring: document.getElementById("defaultCheck1").checked,
+        //         imageUrl: "ADD THIS IN",
+        //         dueDate: this.selectedDate, //add in moment() conversion to add a month
+        //         hasReceipt: "if above option = false so is this"
+        //     }).then(res => {
+        //         console.log(res);
+        //         if (res.data === true) {
+        //             this.$router.push('/');
+        //         }
+        //     }).catch(err => console.error(err));
+
         }
     }
 }
