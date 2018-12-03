@@ -122,7 +122,6 @@ export default {
     },
     methods: {
         createTrans: function(event) {
-            
             axios.post("/api/transaction", {
                 description: document.getElementById('transTitle').innerHTML,
                 amount: "ADD THIS IN - forgot to add option for this on modal",
