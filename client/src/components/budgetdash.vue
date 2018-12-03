@@ -90,6 +90,7 @@ export default {
     axios
     .get("/api/budget")
     .then(res => {
+        this.budgets= []
         res.data.forEach(budget => {
           let limit = parseInt(budget.amount)
           let category = parseInt(budget.categoryId)

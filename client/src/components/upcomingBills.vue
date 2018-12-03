@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
     data(){
         return {
@@ -23,6 +24,20 @@ export default {
                 }
             ]
         }
+    },
+    beforeCreate(){
+        axios.get('/api/transactions').then(res => {
+            this.upcomingBills = []
+            res.data.forEach(transaction => {
+                if (transaction.isRecurring == true){
+                    this.upcomingBills.push({
+                        date: transaction.dueDate,
+                        title: transaction.description,
+                        price: transaction.amount
+                    })
+                }
+            })
+        }).catch(err => console.error(err))
     }
 }
 </script>
