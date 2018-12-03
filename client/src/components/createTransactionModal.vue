@@ -16,7 +16,7 @@
                                 <form>
                                     <div class="form-group text-left">
                                         <input type="text" class="form-control my-1" id="transTitle" aria-describedby="transactionTitle" placeholder="Where did you spend your money?">
-                                        <select class="custom-select my-1" id="inlineFormCustomSelect">
+                                        <select class="custom-select my-1" id="catSelect">
                                             <option selected>What did you spend your money on?</option>
                                             <option :key="category.id"
                                                     v-for="category in categories">
@@ -40,7 +40,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" @click.prevent="" data-dismiss="modal">Create</button>
+                    <button type="button" class="btn btn-primary" @click.prevent="createTrans()" data-dismiss="modal">Create</button>
                 </div>
             </div>
         </div>
@@ -118,6 +118,27 @@ export default {
             id: 15
             }
         ],
+        }
+    },
+    methods: {
+        createTrans: function(event) {
+            
+            axios.post("/api/transaction", {
+                description: document.getElementById('transTitle').innerHTML,
+                amount: "ADD THIS IN - forgot to add option for this on modal",
+                categoryId: document.getElementById('catSelect').selectedIndex +1,
+                date: this.selectedDate,
+                isReconciled: "ADD THIS IN",
+                isRecurring: document.getElementById("defaultCheck1").checked,
+                imageUrl: "ADD THIS IN",
+                dueDate: this.selectedDate, //add in moment() conversion to add a month
+                hasReceipt: "if above option = false so is this"
+            }).then(res => {
+                console.log(res);
+                if (res.data === true) {
+                    this.$router.push('/');
+                }
+            }).catch(err => console.error(err));
         }
     }
 }
