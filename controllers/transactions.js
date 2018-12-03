@@ -44,7 +44,17 @@ module.exports = {
             }
         }).then(results => {
             results.forEach(transaction => {
-                if (transaction.categoryId) categoryTotals[transaction.categoryId] += parseFloat(transaction.amount);
+                if (transaction.date) {
+                    const transMonth = transaction.date.slice(3, 5);
+                    const transYear = transaction.date.slice(8);
+                    const thisMonth = ((new Date().getMonth()) + 1).toString();
+                    const thisYear = (new Date().getYear()).toString().slice(1);
+                    // console.log(transYear === thisYear && transYear === thisYear)
+                    if (transYear === thisYear && transYear === thisYear && transaction.categoryId) {
+                        categoryTotals[transaction.categoryId - 1] += parseFloat(transaction.amount);
+                        console.log('aewfjiowpaejfopj')
+                    }
+                }
             });
             res.json(categoryTotals);
         });

@@ -1,5 +1,5 @@
 <template>
-     <div class="modal fade" ref='createTransModal' id="createTrans" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+     <div name="trans-modal" class="modal fade" ref='createTransModal' id="createTrans" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -35,6 +35,7 @@
                                         <input type="file" class="form-control-file" id="receiptUpload">
                                         <small class="my-3">*Receipt can always be uploaded later and is not required</small>
                                         <p id="message">{{ message }}</p>
+                                        <span>{{ success-message }}</span>
                                     </div>
                                 </form>
                             </div>
@@ -131,11 +132,12 @@ export default {
     },
     methods: {
         postTrans(event) {
-            console.log(this.description);
-            console.log(this.isRecurring);
-            console.log(this.selectedCategoryId);
-            console.log(this.selectedDate);
-            console.log(this.amount);
+            const self = this;
+            // console.log(this.description);
+            // console.log(this.isRecurring);
+            // console.log(this.selectedCategoryId);
+            // console.log(this.selectedDate);
+            // console.log(this.amount);
             const parsedAmount = parseFloat(this.amount);
             if (this.amount && parsedAmount.toString() !== this.amount) return this.message = "Invalid dollar amount";
             if (this.amount && this.amount.indexOf('.') > -1 && this.amount.indexOf('.') < this.amount.length - 3) return this.message = "Invalid dollar amount";
@@ -148,7 +150,14 @@ export default {
                         date: this.selectedDate,
                         amount: parsedAmount
                     })
-                .then(res => console.log(res));
+                .then(res => {
+                    console.log(res)
+                    this.description = null;
+                    this.isRecurring = false;
+                    this.selectedCategoryId = null;
+                    this.selectedDate = null;
+                    this.amount = null;
+                });
             // this.$refs.createTransModal.hide();
         }
     }
