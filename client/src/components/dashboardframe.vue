@@ -133,6 +133,7 @@ export default {
     .container {
         margin: 0 !important;
         padding: 0 !important;
+        overflow-x: hidden;
     }
 }
 </style>
