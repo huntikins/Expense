@@ -16,7 +16,8 @@
                                 <form>
                                     <select class="custom-select" id="inlineFormCustomSelect">
                                         <option :key="category.id"
-                                                v-for="category in categories">
+                                                v-for="category in categories"
+                                                :value="category.id">
                                                 {{ category.name }}
                                         </option>
                                     </select>
@@ -117,7 +118,8 @@ export default {
         },
         createBudget: function(event) {
             const ammount = document.getElementById('limit').innerHTML.substring(1)
-            const categoryId = document.getElementById('inlineFormCustomSelect').selectedIndex +1
+            const e = document.getElementById('inlineFormCustomSelect')
+            const categoryId = e.options[e.selectedIndex].value
             axios.post("/api/budget", {
                 categoryId: categoryId,
                 amount: ammount

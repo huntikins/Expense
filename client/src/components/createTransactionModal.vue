@@ -49,6 +49,7 @@
 
 <script>
 import DateDropdown from 'vue-date-dropdown'
+import axios from 'axios'
 export default {
     components: {
         DateDropdown
@@ -118,27 +119,6 @@ export default {
             id: 15
             }
         ],
-        }
-    },
-    methods: {
-        createTrans: function(event) {
-            
-            axios.post("/api/transaction", {
-                description: document.getElementById('transTitle').innerHTML,
-                amount: "ADD THIS IN - forgot to add option for this on modal",
-                categoryId: document.getElementById('catSelect').selectedIndex +1,
-                date: this.selectedDate,
-                isReconciled: "ADD THIS IN",
-                isRecurring: document.getElementById("defaultCheck1").checked,
-                imageUrl: "ADD THIS IN",
-                dueDate: this.selectedDate, //add in moment() conversion to add a month
-                hasReceipt: "if above option = false so is this"
-            }).then(res => {
-                console.log(res);
-                if (res.data === true) {
-                    this.$router.push('/');
-                }
-            }).catch(err => console.error(err));
         }
     }
 }
