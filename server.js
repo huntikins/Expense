@@ -12,10 +12,6 @@ server.use(routes);
 server.get('*', (req, res) => {
   res.redirect('/');
 });
-<<<<<<< HEAD
-=======
-// const fs = require('fs');
->>>>>>> master
 
 // Starting the server, syncing our models ------------------------------------/
 db.sequelize.sync(serverConfig.syncOptions).then(() => {
