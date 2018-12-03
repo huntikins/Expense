@@ -10,7 +10,7 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe dolores soluta consequuntur, nisi fuga repellendus porro cupiditate facere eligendi! Dolor aliquid dolore necessitatibus, officia voluptas possimus nisi modi ducimus reiciendis.</p>
+                            <p>Just login to your account, add in a purchase or capture the receipt and edit the transaction later. Your transactions are tagged by categories that allow you to create a budget based on the categories you choose, set a monthly goal and see how much you have left to spend!</p>
                         </div>
                     </div>
                 </div>
@@ -27,7 +27,7 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet blanditiis obcaecati delectus nam veniam doloremque iusto tempora commodi harum minima modi, nisi sint autem laudantium vel fugiat, tempore quibusdam earum.</p>
+                            <p>By tracking your spending and sticking to the spending goals you create, you are taking the first step towards financial bliss! The money you save will continue to grow, alleviating financial stress and giving you a safety net for when your wallet gets tight.</p>
                         </div>
                     </div>
                 </div>
