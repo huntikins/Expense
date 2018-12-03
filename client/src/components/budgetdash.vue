@@ -18,86 +18,85 @@
 <script>
 import axios from 'axios'
 export default {
-    categories: [
-            {
-            name:'Rent/Mortgage',
-            id: 1
-            },
-            {
-            name:'Utilities',
-            id: 2
-            },
-            {
-            name:'Entertainment',
-            id: 3
-            },
-            {
-            name:'Misc. Food',
-            id: 4
-            },
-            {
-            name:'Groceries',
-            id: 5
-            },
-            {
-            name:'Gas',
-            id: 6
-            },
-            {
-            name:'Mobile',
-            id: 7
-            },
-            {
-            name:'Subscriptions',
-            id: 8
-            },
-            {
-            name:'Clothing',
-            id: 9
-            },
-            {
-            name:'Charity',
-            id: 10
-            },
-            {
-            name:'Leisure',
-            id: 11
-            },
-            {
-            name:'Health',
-            id: 12
-            },
-            {
-            name:'Credit Card/Loan',
-            id: 13
-            },
-            {
-            name:'Deposit',
-            id: 14
-            },
-            {
-            name:'Withdrawal',
-            id: 15
-            }
-        ],
     data() {
         return {
+            categories: [
+              {
+              name:'Rent/Mortgage',
+              id: 1
+              },
+              {
+              name:'Utilities',
+              id: 2
+              },
+              {
+              name:'Entertainment',
+              id: 3
+              },
+              {
+              name:'Misc. Food',
+              id: 4
+              },
+              {
+              name:'Groceries',
+              id: 5
+              },
+              {
+              name:'Gas',
+              id: 6
+              },
+              {
+              name:'Mobile',
+              id: 7
+              },
+              {
+              name:'Subscriptions',
+              id: 8
+              },
+              {
+              name:'Clothing',
+              id: 9
+              },
+              {
+              name:'Charity',
+              id: 10
+              },
+              {
+              name:'Leisure',
+              id: 11
+              },
+              {
+              name:'Health',
+              id: 12
+              },
+              {
+              name:'Credit Card/Loan',
+              id: 13
+              },
+              {
+              name:'Deposit',
+              id: 14
+              },
+              {
+              name:'Withdrawal',
+              id: 15
+              }
+            ],
             budgets: [],
-            errors: []
+            errors: [],
         }
   },
   beforeCreate(){
     axios
     .get("/api/budget")
     .then(res => {
-        this.budgets = []
         res.data.forEach(budget => {
-          let limit = parseInt(res.ammount)
-          let category = parseInt(res.categoryID)
-          let type = this.categories[parseInt(category) -1].name
+          let limit = parseInt(budget.amount)
+          let category = parseInt(budget.categoryId)
+          let type = this.categories[parseInt(category) +1].name
           axios.get("/api/transactions").then( res=> {
             res.data.forEach(transaction =>{
-              let total = parseInt(res.categoryTotals[category])
+              let total = parseInt(transaction.categoryTotals[category])
               let current = limit - total
               this.budgets.push({
                 limit: limit,
@@ -107,8 +106,9 @@ export default {
             })
           })
         })
+        console.log(this.budgets)
     }).catch(err => console.error(err))
-  }
+  },
 };
 </script>
 
