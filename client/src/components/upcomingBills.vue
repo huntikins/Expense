@@ -50,9 +50,11 @@ export default {
                         amount: res.data.amount,
                         imgURL: res.data.imgURL,
                         isPaid: false,
-                    })
-                })
-            })
+                    }).then(res =>{
+                        getBills()
+                    }).catch(err => console.error(err))
+                }).catch(err => console.error(err))
+            }).catch(err => console.error(err))
         },
         getBills: function(){
             axios.get('/api/transactions').then(res => {
