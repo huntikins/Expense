@@ -77,7 +77,7 @@ module.exports = {
         }
         db.Transaction.update(updatedTrans, {
             where: {
-                id: req.body.Id
+                id: req.body.id
             }
         })
     },
