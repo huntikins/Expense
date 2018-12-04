@@ -84,16 +84,22 @@ module.exports = {
 
     createReceipt: (req, res) => {
         try {
-            imageUrl = s3.upload(req.body.image);
-            console.log(`public image url: ${imageUrl}`);
+            imageUrl = s3.upload(req.body, dbPost);
         }
         catch (err) {
             res.status(500).send(err.message);
         }
 
-        db.Transaction.create({
-            description: req.body.description,
-            imageUrl: imageUrl,
-        }).then(result => res.json(result));
+        function dbPost(body, image) {
+            db.Transaction.create({
+                description: body.description,
+                imageUrl: image,
+                hasReceipt: true,
+            }).then(result => {
+                console.log("post result: " + result);
+                res.json(result)
+            });
+        }
+
     }
 };
