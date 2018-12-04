@@ -23,20 +23,21 @@ A finance tracker built with Vue.js
     6. After build completed navigate to root and type node server.js
     7. go to localhost:NNNN in your browser
 
-# Developer Links
+# Developer Credits
 
 Hunter Trammell:
 - Github: https://github.com/huntertrammell
 - Portfolio: https://huntertrammell.github.io/
 
-David Knittel:
-- Guthub: https://github.com/djknit
+Ryan Freeman:
+- Github: https://github.com/RJFreeman77
 - Portfolio: 
+
+David Knittel:
+- Github: https://github.com/djknit
+- Portfolio: https://djknit.github.io
 
 Douglas Boyce:
 - Github: https://github.com/douglasboyce
 - Portfolio:
 
-Ryan Freman:
-- Github: https://github.com/RJFreeman77
-- Portfolio: 
