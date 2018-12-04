@@ -1,6 +1,6 @@
 const db = require('../models');
 const s3 = require('../services/awsService'); //AWS S3 Service
-// const Moment = require('moment');
+const moment = require('moment');
 
 function parseDateString(dateString) {
     const dateStringArray = dateString.split('.');
@@ -63,6 +63,7 @@ module.exports = {
                         })
                     });
                 }
+                else res.json(result1);
             });
     },
 
@@ -141,9 +142,16 @@ module.exports = {
 
         function dbPost(body, image) {
             db.Transaction.create({
+                userId: req.user.id,
                 description: body.description,
                 imageUrl: image,
                 hasReceipt: true,
+                isReconciled: false,
+                isPaid: false,
+                isRecurring: false,
+                amount: body.amount || null,
+                categoryId: body.categoryId || null,
+                date: moment().format('D.M.YYYY'),
             }).then(result => {
                 console.log("post result: " + result);
                 res.json(result)
