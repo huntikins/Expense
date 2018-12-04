@@ -31,11 +31,6 @@
                                             <input v-model="isRecurring" class="form-check-input" type="checkbox" value="" id="defaultCheck1">
                                             <label class="form-check-label" for="defaultCheck1">Is this a recurring transaction?</label>
                                         </div>
-                                        <label for="receiptUpload" class="my-2">Would you like to attatch a receipt?*</label>
-                                        <input type="file" class="form-control-file" id="receiptUpload">
-                                        <small class="my-3">*Receipt can always be uploaded later and is not required</small>
-                                        <p id="message">{{ message }}</p>
-                                        <span>{{ success-message }}</span>
                                     </div>
                                 </form>
                             </div>
