@@ -34,10 +34,12 @@ export default {
     axios.get("api/transactions").then(res => {
       console.log("transactions response: " + res.data);
       res.data.forEach(trans => {
-        self.receipts.push({
-          date: trans.date,
-          description: trans.desctiption
-        });
+        if (trans.hasReceipt) {
+          self.receipts.push({
+            date: trans.date,
+            description: trans.desctiption
+          });
+        }
       });
     });
   }
