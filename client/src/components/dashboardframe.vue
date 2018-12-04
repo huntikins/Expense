@@ -3,6 +3,7 @@
     <!-- Modal -->
     <createBudgetModal></createBudgetModal>
     <createTransactionModal></createTransactionModal>
+    <snapReceiptsModal></snapReceiptsModal>
     <div class="row">
       <div id="greeting" class="col-12 p-2">
         <h2 class="sub-title">Lets take a quick look at your expenses {{ userFirstname }}.</h2>
@@ -30,7 +31,11 @@
               <pendingReceipts></pendingReceipts>
             </div>
             <div class="card-footer">
-              <button class="btn btn-outline-success my-2 my-sm-0">Capture Reciept</button>
+              <button 
+              class="btn btn-outline-success my-2 my-sm-0"
+              data-toggle="modal"
+              data-target="#snapPicture"
+              >Capture Reciept</button>
             </div>
           </div>
         </div>
@@ -88,6 +93,7 @@ import translog from "./translog.vue";
 import createTransactionModal from "./createTransactionModal.vue";
 import upcomingbills from "./upcomingBills.vue";
 import pendingReceipts from "./pendingReceipts.vue";
+import snapReceiptsModal from './snapReceiptModal.vue';
 export default {
   props: ["userFirstname"],
   components: {
@@ -96,7 +102,8 @@ export default {
     translog,
     createTransactionModal,
     upcomingbills,
-    pendingReceipts
+    pendingReceipts,
+    snapReceiptsModal
   },
   methods: {
     newBudget: function(event) {
@@ -104,6 +111,9 @@ export default {
     },
     editTrans: function() {
       this.update = true;
+    },
+    pictureModal: function() {
+      this.pictureModal = true;
     }
   }
 };
