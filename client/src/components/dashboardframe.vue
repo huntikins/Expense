@@ -28,13 +28,24 @@
               <h1 class="text-white">Captured Receipts</h1>
             </div>
             <div class="card-body">
-              <pendingReceipts></pendingReceipts>
+              <div v-show="pendingTrans.length > 0">
+                <table class="table table-hover">
+                  <pendingReceipts
+                    v-for="pendingTrans in pendingTrans"
+                    v-bind:key="pendingTrans.id"
+                    v-bind:description="pendingTrans.description"
+                  ></pendingReceipts>
+                </table>
+              </div>
+              <div v-show="pendingTrans.length === 0">
+                <p>No Pending Receipts</p>
+              </div>
             </div>
             <div class="card-footer">
-              <button 
-              class="btn btn-outline-success my-2 my-sm-0"
-              data-toggle="modal"
-              data-target="#snapPicture"
+              <button
+                class="btn btn-outline-success my-2 my-sm-0"
+                data-toggle="modal"
+                data-target="#snapPicture"
               >Capture Reciept</button>
             </div>
           </div>
@@ -86,13 +97,15 @@
 </template>
 
 <script>
+import axios from "axios";
 import budgetdash from "./budgetdash.vue";
 import createBudgetModal from "./createBudgetModal.vue";
 import translog from "./translog.vue";
 import createTransactionModal from "./createTransactionModal.vue";
 import upcomingbills from "./upcomingBills.vue";
 import pendingReceipts from "./pendingReceipts.vue";
-import snapReceiptsModal from './snapReceiptModal.vue';
+import snapReceiptsModal from "./snapReceiptModal.vue";
+
 export default {
   props: ["userFirstname"],
   components: {
@@ -104,6 +117,11 @@ export default {
     pendingReceipts,
     snapReceiptsModal
   },
+  data() {
+    return {
+      pendingTrans: []
+    };
+  },
   methods: {
     newBudget: function(event) {
       this.modal = true;
@@ -114,6 +132,21 @@ export default {
     pictureModal: function() {
       this.pictureModal = true;
     }
+  },
+  beforeCreate() {
+    const self = this;
+    axios.get("api/transactions").then(res => {
+      res.data.forEach(trans => {
+        if (trans.hasRecipt) {
+          self.pendingTrans.push({
+            id: trans.id,
+            date: trans.date,
+            description: trans.description,
+            image: trans.imageURL
+          });
+        }
+      });
+    });
   }
 };
 </script>

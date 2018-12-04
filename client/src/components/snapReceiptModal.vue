@@ -34,7 +34,8 @@
                 <label for="noteArea">Short Description</label>
                 <br>
                 <textarea id="noteArea" name="note" rows="3" v-model="description"></textarea>
-                <div class="modal-footer">
+                <div class="modal-footer"></div>
+                <div>
                   <button
                     type="button"
                     class="btn btn-outline-success my-2 my-sm-0"
@@ -42,8 +43,6 @@
                     @click.prevent="takePic()"
                     v-show="cameraActive"
                   >Snap Receipt</button>
-                </div>
-                <div>
                   <button
                     type="button"
                     class="btn btn-outline-success my-2 my-sm-0"
