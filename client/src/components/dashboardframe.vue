@@ -1,33 +1,14 @@
 <template>
-  <div class="container">
-    <!-- Modal -->
-    <createBudgetModal></createBudgetModal>
-    <createTransactionModal></createTransactionModal>
-    <snapReceiptsModal></snapReceiptsModal>
-    <div class="row">
-      <div id="greeting" class="col-12 p-2">
-        <h2 class="sub-title">Lets take a quick look at your expenses {{ userFirstname }}.</h2>
-      </div>
-    </div>
-    <div class="row m-4">
-      <div class="col-lg-6 col-sm-12">
-        <div class="col-12 mb-4">
-          <div class="card">
-            <div class="card-header">
-              <h1 class="text-white">Upcoming Bills</h1>
+    <div class="container">
+        <!-- Modal -->
+        <createBudgetModal></createBudgetModal>
+        <createTransactionModal></createTransactionModal>
+        <snapReceiptsModal></snapReceiptsModal>
+        <div class="row">
+            <div id="greeting" class="col-12 p-2">
+                <h2 class="sub-title">Lets take a quick look at your expenses {{ userFirstname }}.</h2>
             </div>
-            <div class="card-body">
-              <upcomingbills></upcomingbills>
-            </div>
-            <div class="card-footer"></div>
-          </div>
         </div>
-<<<<<<< HEAD
-        <div class="col-12">
-          <div class="card">
-            <div class="card-header">
-              <h1 class="text-white">Captured Receipts</h1>
-=======
         <div class="row m-4">
             <div class="col-lg-6 col-sm-12 mb-4">
                 <div class="col-12 mb-4">
@@ -43,31 +24,36 @@
                     </div>
                 </div>
                 <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h1 class="text-white">Captured Receipts</h1>
-                        </div>
-                        <div class="card-body">
-                            <!--insert receiptdiv here-->
-                        </div>
-                        <div class="card-footer">
-                            <button class="btn btn-outline-success my-2 my-sm-0">Capture Reciept</button>
-                        </div>
+                  <div class="card">
+                    <div class="card-header">
+                      <h1 class="text-white">Captured Receipts</h1>
+                    </div>
+                    <div class="card-body">
+                      <pendingReceipts></pendingReceipts>
+                    </div>
+                    <div class="card-footer">
+                      <button class="btn btn-outline-success my-2 my-sm-0"
+                              data-toggle="modal"
+                              data-target="#snapPicture"
+                              >Capture Reciept
+                      </button>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="text-white">Monthly Budget</h1>
+                    </div>
+                    <div class="card-body">
+                        <budgetdash></budgetdash>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-outline-success my-2 my-sm-0" data-toggle="modal" data-target="#createBudget">Create Budget</button>
                     </div>
                 </div>
->>>>>>> master
             </div>
-            <div class="card-body">
-              <pendingReceipts></pendingReceipts>
-            </div>
-<<<<<<< HEAD
-            <div class="card-footer">
-              <button 
-              class="btn btn-outline-success my-2 my-sm-0"
-              data-toggle="modal"
-              data-target="#snapPicture"
-              >Capture Reciept</button>
-=======
         </div>
         <div class="row m-4">
             <div class="col-12">
@@ -85,55 +71,9 @@
                         <button class="btn btn-outline-success my-2 my-sm-0 float-right" @click.prevent="editTrans()">Edit</button>
                     </div>
                 </div>
->>>>>>> master
             </div>
-          </div>
         </div>
-      </div>
-      <div class="col-lg-6 col-sm-12">
-        <div class="card">
-          <div class="card-header">
-            <h1 class="text-white">Monthly Budget</h1>
-          </div>
-          <div class="card-body">
-            <budgetdash></budgetdash>
-          </div>
-          <div class="card-footer">
-            <button
-              class="btn btn-outline-success my-2 my-sm-0"
-              data-toggle="modal"
-              data-target="#createBudget"
-            >Create Budget</button>
-          </div>
-        </div>
-      </div>
     </div>
-    <div class="row m-4">
-      <div class="col-12">
-        <div class="card">
-          <div class="card-header">
-            <h1 class="text-white">Recent Transactions</h1>
-          </div>
-          <div class="card-body">
-            <translog></translog>
-            <!--insert translog div here-->
-          </div>
-          <div class="card-footer">
-            <button
-              class="btn btn-outline-success my-2 my-sm-0 float-left"
-              data-toggle="modal"
-              data-target="#createTrans"
-            >Create Transaction</button>
-            <button class="btn btn-outline-success my-2 my-sm-0">Delete Transaction</button>
-            <button
-              class="btn btn-outline-success my-2 my-sm-0 float-right"
-              @click.prevent="editTrans()"
-            >Edit Transaction</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </template>
 
 <script>
