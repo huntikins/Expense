@@ -4,13 +4,6 @@ const Moment = require('moment')
 
 module.exports = {
     create: (req, res) => {
-        // if (req.body.date) {
-        //     const inDate = req.body.date;
-        //     let outDate = inDate.slice(6, 10);
-        //     outDate += "-" + inDate.slice(3, 5);
-        //     outDate =+ "-" + inDate.slice(0, 2);
-        //     req.body.date = outDate;
-        // }
         const newTrans = {
             userId: req.user.id,
             description: req.body.description || null,
@@ -96,6 +89,12 @@ module.exports = {
                 description: body.description,
                 imageUrl: image,
                 hasReceipt: true,
+                isReconciled: false,
+                isPaid: false,
+                isRecurring: false,
+                amount: body.amount || null,
+                categoryId: body.categoryId || null,
+                date: Moment.format('D.M.YYYY'),
             }).then(result => {
                 console.log("post result: " + result);
                 res.json(result)

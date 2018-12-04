@@ -33,8 +33,8 @@
             <div class="card-footer">
               <button 
               class="btn btn-outline-success my-2 my-sm-0"
-              data-toggle="pictureModal"
-              data-target="#takePicture"
+              data-toggle="modal"
+              data-target="#snapPicture"
               >Capture Reciept</button>
             </div>
           </div>
@@ -66,7 +66,6 @@
           </div>
           <div class="card-body">
             <translog></translog>
-            <!--insert translog div here-->
           </div>
           <div class="card-footer">
             <button
