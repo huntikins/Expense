@@ -44,7 +44,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" @click.prevent="postTrans">Create</button>
+                    <button type="button" class="btn btn-primary" @click.prevent="postTrans" data-dismiss="modal">Create</button>
                 </div>
             </div>
         </div>
@@ -157,6 +157,7 @@ export default {
                     this.selectedCategoryId = null;
                     this.selectedDate = null;
                     this.amount = null;
+                    location.reload()
                 });
             // this.$refs.createTransModal.hide();
         }

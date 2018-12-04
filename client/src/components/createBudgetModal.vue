@@ -128,6 +128,7 @@ export default {
                 if (res.data === true) {
                     this.$router.push('/');
                 }
+                location.reload()
             }).catch(err => console.error(err));
         }
 

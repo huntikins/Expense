@@ -29,21 +29,28 @@ export default {
     methods: {
         markAsPaid: function(event){
             //do something
+            //axios call to update
+            //chage marked as paid to true
+            //if marked as paid = true, then add 1 month onto date and set marked as paid to false
+            //call getBills() function
+        },
+        getBills: function(){
+            axios.get('/api/transactions').then(res => {
+                this.upcomingBills = []
+                res.data.forEach(transaction => {
+                    if (transaction.isRecurring == true){
+                        this.upcomingBills.push({
+                            date: transaction.date,
+                            title: transaction.description,
+                            price: transaction.amount
+                        })
+                    }
+                })
+            }).catch(err => console.error(err))
         }
     },
     beforeCreate(){
-        axios.get('/api/transactions').then(res => {
-            this.upcomingBills = []
-            res.data.forEach(transaction => {
-                if (transaction.isRecurring == true){
-                    this.upcomingBills.push({
-                        date: transaction.dueDate,
-                        title: transaction.description,
-                        price: transaction.amount
-                    })
-                }
-            })
-        }).catch(err => console.error(err))
+        getBills()
     }
 }
 </script>
