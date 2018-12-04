@@ -1,6 +1,7 @@
 const db = require('../models');
 const s3 = require('../services/awsService'); //AWS S3 Service
-const Moment = require('moment')
+var moment = require('moment');
+moment().format();
 
 module.exports = {
     create: (req, res) => {
@@ -94,7 +95,7 @@ module.exports = {
                 isRecurring: false,
                 amount: body.amount || null,
                 categoryId: body.categoryId || null,
-                date: Moment.format('D.M.YYYY'),
+                date: moment().format('D.M.YYYY'),
             }).then(result => {
                 console.log("post result: " + result);
                 res.json(result)

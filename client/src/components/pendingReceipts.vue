@@ -3,7 +3,7 @@
     <div v-show="receipts.length > 0">
       <table class="table table-hover">
         <tbody>
-          <tr v-for="receipt in receipts">
+          <tr v-for="receipt in receipts" v-bind:key="receipt.id">
             <td>{{ receipt.date }}</td>
             <td>{{ receipt.description }}</td>
             <td>
@@ -21,6 +21,7 @@
 
 <script lang="ts">
 import axios from "axios";
+import reconcile from "./reconvile.vue";
 
 export default {
   props: ["name", "initialEnthusiasm"],
@@ -36,12 +37,17 @@ export default {
       res.data.forEach(trans => {
         if (trans.hasReceipt) {
           self.receipts.push({
+            id: trans.id,
             date: trans.date,
-            description: trans.description
+            description: trans.description,
+            image: trans.imageURL
           });
         }
       });
     });
+  },
+  components: {
+    reconcile
   }
 };
 </script>
