@@ -30,11 +30,22 @@ export default {
     },
     methods: {
         markAsPaid: function(event){
-            axios.put('/api/transactions/' + event.target.value,{
+            let transId = event.target.transaction
+            axios.put('/api/transactions/',
+            {
+                where: {
+                    id: transId
+                }
+            },
+            {
                 isPaid: true
             }).then( res => {
                 axios
-                .get('/api/transactions/' + event.target.value).then(res=>{
+                .get('/api/transactions/',{
+                    where: {
+                        id: transId
+                    }
+                }).then(res=>{
                     moment.addRealMonth = function addRealMonth(d) {
                         let fm = moment(d).add(1, 'M');
                         let fmEnd = moment(fm).endOf('month');
