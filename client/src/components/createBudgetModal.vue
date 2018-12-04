@@ -16,7 +16,8 @@
                                 <form>
                                     <select class="custom-select" id="inlineFormCustomSelect">
                                         <option :key="category.id"
-                                                v-for="category in categories">
+                                                v-for="category in categories"
+                                                :value="category.id">
                                                 {{ category.name }}
                                         </option>
                                     </select>
@@ -24,7 +25,7 @@
                                 <h5>Tell us how much you would like to spend</h5>
                                 <form>
                                     <div class="form-group">
-                                        <label for="formControlRange">${{ value }}</label>
+                                        <label id="limit" for="formControlRange">${{ value }}</label>
                                         <input type="range" min="0" max="1000" step="10" v-model="value" class="form-control-range" id="formControlRange"> 
                                     </div>
                                 </form>
@@ -116,9 +117,12 @@ export default {
             return this.value
         },
         createBudget: function(event) {
+            const ammount = document.getElementById('limit').innerHTML.substring(1)
+            const e = document.getElementById('inlineFormCustomSelect')
+            const categoryId = e.options[e.selectedIndex].value
             axios.post("/api/budget", {
-                categoryId: "test",
-                amount: "test"
+                categoryId: categoryId,
+                amount: ammount
             }).then(res => {
                 console.log(res);
                 if (res.data === true) {

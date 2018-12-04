@@ -70,9 +70,9 @@ export default {
         axios
             .get('/api/transactions')
             .then(res => {
-                console.log(res);
-                self.transactions = [];
-                res.data.forEach(transaction => {
+                console.log(res)
+            self.transactions = [];
+            res.data.forEach(transaction => {
                 self.transactions.push({
                     title: transaction.description,
                     price: transaction.amount,
@@ -86,5 +86,11 @@ export default {
 </script>
 
 <style>
-
+@media screen and (max-width: 767px) {
+    table {
+        display: block;
+        overflow: scroll;
+    }
+    
+}
 </style>

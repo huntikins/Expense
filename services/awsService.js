@@ -26,7 +26,6 @@ module.exports = {
                 console.log('Error uploading data: ', data);
                 throw new Error(err);
             } else {
-                (data.Location) ? console.log('succesfully uploaded the image!') : console.log('no image location');
                 console.log(data.Location);
                 cb(body, data.Location);
                 // return data.Location;
