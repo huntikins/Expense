@@ -22,70 +22,20 @@
             <div class="card-footer"></div>
           </div>
         </div>
-<<<<<<< HEAD
         <div class="col-12">
           <div class="card">
             <div class="card-header">
               <h1 class="text-white">Captured Receipts</h1>
-=======
-        <div class="row m-4">
-            <div class="col-lg-6 col-sm-12 mb-4">
-                <div class="col-12 mb-4">
-                    <div class="card">
-                        <div class="card-header">
-                            <h1 class="text-white">Upcoming Bills</h1>
-                        </div>
-                        <div class="card-body">
-                            <upcomingbills></upcomingbills>
-                        </div>
-                        <div class="card-footer">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h1 class="text-white">Captured Receipts</h1>
-                        </div>
-                        <div class="card-body">
-                            <!--insert receiptdiv here-->
-                        </div>
-                        <div class="card-footer">
-                            <button class="btn btn-outline-success my-2 my-sm-0">Capture Reciept</button>
-                        </div>
-                    </div>
-                </div>
->>>>>>> master
             </div>
             <div class="card-body">
               <pendingReceipts></pendingReceipts>
             </div>
-<<<<<<< HEAD
             <div class="card-footer">
               <button 
               class="btn btn-outline-success my-2 my-sm-0"
-              data-toggle="modal"
-              data-target="#snapPicture"
+              data-toggle="pictureModal"
+              data-target="#takePicture"
               >Capture Reciept</button>
-=======
-        </div>
-        <div class="row m-4">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h1 class="text-white">Recent Transactions</h1>
-                    </div>
-                    <div class="card-body">
-                        <translog></translog>
-                        <!--insert translog div here-->
-                    </div>
-                    <div class="card-footer">
-                        <button class="btn btn-outline-success my-2 my-sm-0 float-left" data-toggle="modal" data-target="#createTrans">Create</button>
-                        <button class="btn btn-outline-success my-2 my-sm-0">Delete</button>
-                        <button class="btn btn-outline-success my-2 my-sm-0 float-right" @click.prevent="editTrans()">Edit</button>
-                    </div>
-                </div>
->>>>>>> master
             </div>
           </div>
         </div>
@@ -184,29 +134,5 @@ export default {
 .transInfo {
   padding: 0;
   margin: 0;
-}
-@media screen and (max-width: 767px) {
-    .col-sm-12, .col-12 {
-        position: relative;
-        left: -25;
-        right: 25;
-        margin-left: 0 !important;
-        padding-left: 0 !important;
-        margin-right: 0 !important;
-        padding-right: 0 !important;
-    }
-    .sub-title {
-        padding-left: 10px;
-        padding-right: 10px;
-    }
-    .card {
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-    .container {
-        margin: 0 !important;
-        padding: 0 !important;
-        overflow-x: hidden;
-    }
 }
 </style>

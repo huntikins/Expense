@@ -92,6 +92,7 @@ module.exports = {
 
         function dbPost(body, image) {
             db.Transaction.create({
+                userId: req.user.id,
                 description: body.description,
                 imageUrl: image,
                 hasReceipt: true,
