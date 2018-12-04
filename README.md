@@ -2,6 +2,8 @@
 
 A finance tracker built with Vue.js
 
+Deployed app: https://quiet-spire-74175.herokuapp.com
+
 # Tech Overview
     User Authentication - Passport.js Passport-Local Strategy (Connect style middleware)
     Framework - Vue.js with bootstrap and CSS for styling
