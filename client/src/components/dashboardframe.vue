@@ -3,6 +3,7 @@
         <!-- Modal -->
         <createBudgetModal></createBudgetModal>
         <createTransactionModal></createTransactionModal>
+        <snapReceiptsModal></snapReceiptsModal>
         <div class="row">
             <div id="greeting" class="col-12 p-2">
                 <h2 class="sub-title">Lets take a quick look at your expenses {{ userFirstname }}.</h2>
@@ -23,17 +24,21 @@
                     </div>
                 </div>
                 <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h1 class="text-white">Captured Receipts</h1>
-                        </div>
-                        <div class="card-body">
-                            <!--insert receiptdiv here-->
-                        </div>
-                        <div class="card-footer">
-                            <button class="btn btn-outline-success my-2 my-sm-0">Capture Reciept</button>
-                        </div>
+                  <div class="card">
+                    <div class="card-header">
+                      <h1 class="text-white">Captured Receipts</h1>
                     </div>
+                    <div class="card-body">
+                      <pendingReceipts></pendingReceipts>
+                    </div>
+                    <div class="card-footer">
+                      <button class="btn btn-outline-success my-2 my-sm-0"
+                              data-toggle="modal"
+                              data-target="#snapPicture"
+                              >Capture Reciept
+                      </button>
+                    </div>
+                  </div>
                 </div>
             </div>
             <div class="col-lg-6 col-sm-12">
@@ -61,9 +66,7 @@
                         <!--insert translog div here-->
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn-outline-success my-2 my-sm-0 float-left" data-toggle="modal" data-target="#createTrans">Create</button>
-                        <button class="btn btn-outline-success my-2 my-sm-0">Delete</button>
-                        <button class="btn btn-outline-success my-2 my-sm-0 float-right" @click.prevent="editTrans()">Edit</button>
+                        <button class="btn btn-outline-success my-2 my-sm-0" data-toggle="modal" data-target="#createTrans">Create</button>
                     </div>
                 </div>
             </div>
@@ -72,45 +75,53 @@
 </template>
 
 <script>
-import budgetdash from './budgetdash.vue'
-import createBudgetModal from './createBudgetModal.vue'
-import translog from './translog.vue'
-import createTransactionModal from './createTransactionModal.vue'
-import upcomingbills from './upcomingBills.vue'
+import budgetdash from "./budgetdash.vue";
+import createBudgetModal from "./createBudgetModal.vue";
+import translog from "./translog.vue";
+import createTransactionModal from "./createTransactionModal.vue";
+import upcomingbills from "./upcomingBills.vue";
+import pendingReceipts from "./pendingReceipts.vue";
+import snapReceiptsModal from './snapReceiptModal.vue';
 export default {
-    props: ['userFirstname'],
-    components: {
-        budgetdash,
-        createBudgetModal,
-        translog,
-        createTransactionModal,
-        upcomingbills
+  props: ["userFirstname"],
+  components: {
+    budgetdash,
+    createBudgetModal,
+    translog,
+    createTransactionModal,
+    upcomingbills,
+    pendingReceipts,
+    snapReceiptsModal
+  },
+  methods: {
+    newBudget: function(event) {
+      this.modal = true;
     },
-    methods: {
-        newBudget: function(event){
-            this.modal = true  
-        },
-        editTrans: function() {
-            this.update = true
-        }
+    editTrans: function() {
+      this.update = true;
+    },
+    pictureModal: function() {
+      this.pictureModal = true;
     }
-}
+  }
+};
 </script>
 
 <style scoped>
-.card-header, .card-footer {
-    background-color: #163840;
+.card-header,
+.card-footer {
+  background-color: #163840;
 }
 .card {
-    border: 1px solid #163840;
+  border: 1px solid #163840;
 }
 .trans {
-    overflow-y: scroll;
-    height: 200px;
+  overflow-y: scroll;
+  height: 200px;
 }
 .transInfo {
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
 }
 @media screen and (max-width: 767px) {
     .col-sm-12, .col-12 {

@@ -11,8 +11,8 @@ aws.config.update({
 const s3Bucket = new aws.S3({ params: { Bucket: keys.S3_Bucket } });
 
 module.exports = {
-    upload: (image) => {
-        buf = new Buffer(image.replace(/^data:image\/\w+;base64,/, ""), 'base64');
+    upload: (body, cb) => {
+        buf = new Buffer(body.image.replace(/^data:image\/\w+;base64,/, ""), 'base64');
         let time = Date.now().toString();
         var data = {
             Key: `receipt-snap-${time}`,
@@ -24,12 +24,11 @@ module.exports = {
         s3Bucket.upload(data, function (err, data) {
             if (err) {
                 console.log('Error uploading data: ', data);
-                throw new Error(err);//res.status(500).send(err.message);
+                throw new Error(err);
             } else {
-                console.log(data);
-                console.log('succesfully uploaded the image!');
                 console.log(data.Location);
-                return data.Location;
+                cb(body, data.Location);
+                // return data.Location;
             }
         });
     }
