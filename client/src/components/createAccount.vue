@@ -59,6 +59,19 @@ export default {
         })
         .then(res => {
           self.message = res.data;
+          axios
+          .post("/api/authentication/login", {
+            email: this.email,
+            password: this.password
+          })
+          .then(res => {
+            console.log(res);
+            if (res.data === true) {
+              self.$router.push('/dashboard');
+            }
+            self.message = res.data;
+          })
+          .catch(err => console.error(err));
         })
         .catch(err => console.error(err));
     }
