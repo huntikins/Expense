@@ -66,9 +66,7 @@
                         <!--insert translog div here-->
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn-outline-success my-2 my-sm-0 float-left" data-toggle="modal" data-target="#createTrans">Create</button>
-                        <button class="btn btn-outline-success my-2 my-sm-0">Delete</button>
-                        <button class="btn btn-outline-success my-2 my-sm-0 float-right" @click.prevent="editTrans()">Edit</button>
+                        <button class="btn btn-outline-success my-2 my-sm-0" data-toggle="modal" data-target="#createTrans">Create</button>
                     </div>
                 </div>
             </div>

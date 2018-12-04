@@ -73,12 +73,12 @@ export default {
                 console.log(res)
             self.transactions = [];
             res.data.forEach(transaction => {
-                self.transactions.push({
-                    title: transaction.description,
-                    price: transaction.amount,
-                    date: transaction.date,
-                    receipt: transaction.hasReceipt
-                });
+                    self.transactions.push({
+                        title: transaction.description,
+                        price: transaction.amount,
+                        date: transaction.date,
+                        receipt: transaction.hasReceipt
+                    });
             });
         });
     }

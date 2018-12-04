@@ -50,7 +50,7 @@ module.exports = {
                     const thisMonth = ((new Date().getMonth()) + 1).toString();
                     const thisYear = (new Date().getYear()).toString().slice(1);
                     // console.log(transYear === thisYear && transYear === thisYear)
-                    if (transYear === thisYear && transYear === thisYear && transaction.categoryId) {
+                    if (transYear === thisYear && transMonth === thisMonth && transaction.categoryId) {
                         categoryTotals[transaction.categoryId - 1] += parseFloat(transaction.amount);
                         console.log('aewfjiowpaejfopj')
                     }

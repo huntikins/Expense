@@ -71,7 +71,7 @@ export default {
             axios.get('/api/transactions').then(res => {
                 this.upcomingBills = []
                 res.data.forEach(transaction => {
-                    if (transaction.isRecurring == true && transaction.isPaid == false){
+                    if (transaction.isRecurring == true && transaction.isPaid == false || null){
                         this.upcomingBills.push({
                             date: transaction.date,
                             title: transaction.description,
