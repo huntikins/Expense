@@ -82,7 +82,10 @@ export default {
           description: this.description,
           image: this.capture
         })
-        .then(response => console.log("snapReceipt response" + response))
+        .then(response => {
+          console.log("snapReceipt response" + response)
+          location.reload();
+        })
         .catch(error => console.log("snapReceipt error" + error));
     }
   },

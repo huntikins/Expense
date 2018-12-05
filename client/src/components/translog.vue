@@ -15,7 +15,7 @@
                 <td>{{ trans.price }}</td>
                 <td>{{ trans.date }}</td>
                 <td>
-                    <span v-if="trans.receipt == true"><i class="fas fa-receipt"></i></span>
+                    <a v-if="trans.receipt == true" :href="trans.receiptUrl"><i class="fas fa-receipt"></i></a>
                     <span v-else>none</span>
                 </td>
                 <!-- <td v-if="update==true"><input type="checkbox"></td> -->
@@ -38,30 +38,35 @@ export default {
                 price: 44.97,
                 date: "11/29/18",
                 receipt: true,
+                receiptUrl: null
             },
             {
                 title: "Amazon",
                 price: 12.43,
                 date: "11/21/18",
                 receipt: false,
+                receiptUrl: null
             },
             {
                 title: "KCPL",
                 price: 164.13,
                 date: "11/01/18",
                 receipt: false,
+                receiptUrl: null
             },
             {
                 title: "Starbucks",
                 price: 4.90,
                 date: "11/29/18",
                 receipt: true,
+                receiptUrl: null
             },
             {
                 title: "Barnes & Noble",
                 price: 44.97,
                 date: "11/29/18",
                 receipt: true,
+                receiptUrl: null
             }]
         }
     },
@@ -73,12 +78,13 @@ export default {
                 console.log(res)
             self.transactions = [];
             res.data.forEach(transaction => {
-                    self.transactions.push({
-                        title: transaction.description,
-                        price: transaction.amount,
-                        date: transaction.date,
-                        receipt: transaction.hasReceipt
-                    });
+                self.transactions.push({
+                    title: transaction.description,
+                    price: transaction.amount,
+                    date: transaction.date,
+                    receipt: transaction.hasReceipt,
+                    receiptUrl: transaction.imageUrl
+                });
             });
         });
     }

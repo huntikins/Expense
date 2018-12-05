@@ -31,6 +31,11 @@
                                             <input v-model="isRecurring" class="form-check-input" type="checkbox" value="" id="defaultCheck1">
                                             <label class="form-check-label" for="defaultCheck1">Is this a recurring transaction?</label>
                                         </div>
+                                        <div class="form-check my-2">
+                                            <input v-model="isPaid" class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+                                            <label class="form-check-label" for="defaultCheck2">Have you already paid for this transaction?</label>
+                                        </div>
+                                        <span id="message">{{ message }}</span>
                                     </div>
                                 </form>
                             </div>
@@ -39,7 +44,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" @click.prevent="postTrans" data-dismiss="modal">Create</button>
+                    <button type="button" class="btn btn-primary" @click.prevent="postTrans">Create</button>
                 </div>
             </div>
         </div>
@@ -61,6 +66,7 @@ export default {
             isRecurring: false,
             amount: null,
             message: null,
+            isPaid: false,
             categories: [
             {
             name:'Rent/Mortgage',
@@ -134,25 +140,29 @@ export default {
             // console.log(this.selectedDate);
             // console.log(this.amount);
             const parsedAmount = parseFloat(this.amount);
-            if (this.amount && parsedAmount.toString() !== this.amount) return this.message = "Invalid dollar amount";
-            if (this.amount && this.amount.indexOf('.') > -1 && this.amount.indexOf('.') < this.amount.length - 3) return this.message = "Invalid dollar amount";
+            if (this.amount && isNaN(this.amount)) return this.message = "Invalid dollar amount";
+            if (this.amount.indexOf('.') > -1 && this.amount.indexOf('.') < this.amount.length - 3) return this.message = "Invalid dollar amount";
+            console.log(this.amount.indexOf('.'))
+            console.log(this.amount.length)
             axios
                 .post('/api/transactions/',
                     {
-                        description: this.description,
-                        isRecurring: this.isRecurring,
-                        categoryId: this.selectedCategoryId,
-                        date: this.selectedDate,
-                        amount: parsedAmount
+                        description: self.description,
+                        isRecurring: self.isRecurring,
+                        categoryId: self.selectedCategoryId,
+                        date: self.selectedDate,
+                        amount: parsedAmount,
+                        isPaid: self.isPaid
                     })
                 .then(res => {
                     console.log(res)
-                    this.description = null;
-                    this.isRecurring = false;
-                    this.selectedCategoryId = null;
-                    this.selectedDate = null;
-                    this.amount = null;
-                    location.reload()
+                    self.description = null;
+                    self.isRecurring = false;
+                    self.isPaid = false;
+                    self.selectedCategoryId = null;
+                    self.selectedDate = null;
+                    self.amount = null;
+                    location.reload();
                 });
             // this.$refs.createTransModal.hide();
         }
