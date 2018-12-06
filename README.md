@@ -33,7 +33,7 @@ Hunter Trammell:
 
 Ryan Freeman:
 - Github: https://github.com/RJFreeman77
-- Portfolio: 
+- Portfolio: https://rjfreeman77.github.io/
 
 David Knittel:
 - Github: https://github.com/djknit
