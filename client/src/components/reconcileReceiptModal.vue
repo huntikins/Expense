@@ -18,7 +18,7 @@
                                         <input type="text" v-model="amount" class="form-control my-1" placeholder="Enter transaction amount">
                                         <input type="text" v-model="description" class="form-control my-1" id="transTitle" aria-describedby="transactionTitle" placeholder="Where did you spend your money?">
                                         <select v-model="selectedCategoryId" class="custom-select my-1" id="inlineFormCustomSelect">
-                                            <option disabled value="">What did you spend your money on?</option>
+                                            <option disabled value='0'>What did you spend your money on?</option>
                                             <option :key="category.id"
                                                     v-for="category in categories"
                                                     :value="category.id">
@@ -58,10 +58,11 @@ export default {
     components: {
         DateDropdown
     },
+    props: ['transactionId'],
     data () {
         return {
             description: null,
-            selectedCategoryId: "",
+            selectedCategoryId: null,
             selectedDate: null,
             isRecurring: false,
             amount: null,
@@ -134,9 +135,16 @@ export default {
     methods: {
         postTrans(event) {
             const self = this;
+            // console.log(this.description);
+            // console.log(this.isRecurring);
+            // console.log(this.selectedCategoryId);
+            // console.log(this.selectedDate);
+            // console.log(this.amount);
             const parsedAmount = parseFloat(this.amount);
             if (this.amount && isNaN(this.amount)) return this.message = "Invalid dollar amount";
             if (this.amount.indexOf('.') > -1 && this.amount.indexOf('.') < this.amount.length - 3) return this.message = "Invalid dollar amount";
+            console.log(this.amount.indexOf('.'))
+            console.log(this.amount.length)
             axios
                 .post('/api/transactions/',
                     {

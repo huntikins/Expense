@@ -2,7 +2,6 @@
     <form class="form-inline my-2 my-lg-0">
         <span id="email">{{ userEmail }}</span>
         <button class="btn btn-outline-success my-2 my-sm-0" @click="logout" type="submit">Sign out</button>
-        <button class="btn btn-outline-success my-2 my-sm-0" @click="testLogin">TEST</button>
     </form>
 </template>
 

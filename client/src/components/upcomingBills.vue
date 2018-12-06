@@ -6,8 +6,9 @@
                 <td class="align-middle">{{ upcoming.title }}</td>
                 <td class="align-middle">${{ upcoming.price }}</td>
                 <td><button class="btn btn-outline-success my-2 my-sm-0"
-                            @click.prevent="markAsPaid($event)"
-                            :value="upcoming.id">Paid</button></td>
+                        @click.prevent="markAsPaid($event)"
+                        :value="upcoming.id">Paid</button>
+                </td>
             </tr>
         </tbody> 
     </table>
@@ -17,32 +18,10 @@
 import axios from 'axios'
 import moment from 'moment'
 
-function getBills(self) {
-    axios.get('/api/transactions').then(res => {
-        self.upcomingBills = [];
-        res.data.forEach(transaction => {
-            if (transaction.isRecurring && !transaction.hasHappened && !transaction.isPaid) {
-                    self.upcomingBills.push({
-                    date: transaction.date,
-                    title: transaction.description,
-                    price: transaction.amount,
-                    id: transaction.id
-                })
-            }
-        });
-    }).catch(err => console.error(err))
-}
-
 export default {
     data(){
         return {
-            upcomingBills: [
-                {
-                    date: "01/12/2019",
-                    title: "KCPL",
-                    price: "99.97"
-                }
-            ]
+            upcomingBills: []
         }
     },
     methods: {
@@ -82,24 +61,23 @@ export default {
                 //     }).catch(err => console.error(err))
                 // }).catch(err => console.error(err))
             // }).catch(err => console.error(err))
-        },
-        getBills
-            // axios.get('/api/transactions').then(res => {
-            //     this.upcomingBills = []
-            //     res.data.forEach(transaction => {
-            //         if (transaction.isRecurring == true && transaction.isPaid == false || null){
-            //             this.upcomingBills.push({
-            //                 date: transaction.date,
-            //                 title: transaction.description,
-            //                 price: transaction.amount
-            //             })
-            //         }
-            //     })
-            // }).catch(err => console.error(err))
-        
+        }
     },
     beforeCreate(){
-        getBills(this);
+        console.log("beforeCreate()")
+        axios.get('/api/transactions').then(res => {
+            this.upcomingBills = [];
+            res.data.forEach(transaction => {
+                if (transaction.isRecurring && !transaction.hasHappened && !transaction.isPaid) {
+                    this.upcomingBills.push({
+                        date: transaction.date,
+                        title: transaction.description,
+                        price: transaction.amount,
+                        id: transaction.id
+                    });
+                }
+            });
+        }).catch(err => console.error(err))
     }
 }
 </script>

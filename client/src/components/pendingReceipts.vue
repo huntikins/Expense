@@ -37,7 +37,8 @@ export default {
         if (trans.hasReceipt) {
           self.receipts.push({
             date: trans.date,
-            description: trans.desctiption
+            description: trans.desctiption,
+            id: trans.id
           });
         }
       });
