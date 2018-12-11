@@ -29,38 +29,10 @@ export default {
             const self = this;
             let transId = event.target.value
             console.log(transId)
-            axios.put('/api/transactions/',
+            axios.put('/api/transactions/markPaid',
             {
-                id: transId,
-                isPaid: true
+                id: transId
             }).then(() => self.$router.push('/'));
-                
-                // axios
-                // .get('/api/transactions/',{
-                //     where: {
-                //         id: transId
-                //     }
-                // }).then(res=>{
-                //     moment.addRealMonth = function addRealMonth(d) {
-                //         let fm = moment(d).add(1, 'M');
-                //         let fmEnd = moment(fm).endOf('month');
-                //         return d.date() != fm.date() && fm.isSame(fmEnd.format('DD.MM.YYY')) ? fm.add(1, 'd') : fm;  
-                //     }
-                //     let nextMonth = moment.addRealMonth(moment());
-                //     let newDate = nextMonth.format('DD.MM.YYYY');
-                //     axios.post('/api/transactions',{
-                //         description: res.data.description,
-                //         isRecurring: true,
-                //         categoryId: res.data.categoryId,
-                //         date: this.newDate,
-                //         amount: res.data.amount,
-                //         imgURL: res.data.imgURL,
-                //         isPaid: false,
-                //     }).then(res =>{
-                //         this.getBills()
-                //     }).catch(err => console.error(err))
-                // }).catch(err => console.error(err))
-            // }).catch(err => console.error(err))
         }
     },
     beforeCreate(){
@@ -68,7 +40,7 @@ export default {
         axios.get('/api/transactions').then(res => {
             this.upcomingBills = [];
             res.data.forEach(transaction => {
-                if (transaction.isRecurring && !transaction.hasHappened && !transaction.isPaid) {
+                if (transaction.isRecurring && !transaction.isPaid && transaction.isCurrent) {
                     this.upcomingBills.push({
                         date: transaction.date,
                         title: transaction.description,

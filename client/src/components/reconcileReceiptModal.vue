@@ -1,5 +1,5 @@
 <template>
-     <div name="trans-modal" class="modal fade" ref='createTransModal' id="createTrans" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+     <div name="reconcile-modal" class="modal fade" ref='reconcileReceiptModal' id="reconcileReceipt" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <reconcile-receipt-modal></reconcile-receipt-modal>
     <div v-show="receipts.length > 0">
       <table class="table table-hover">
         <tbody>
@@ -7,7 +8,7 @@
             <td>{{ receipt.date }}</td>
             <td>{{ receipt.description }}</td>
             <td>
-              <button class="btn btn-outline-success my-2 my-sm-0">Reconcile</button>
+              <button class="btn btn-outline-success my-2 my-sm-0" data-toggle="modal" data-target="#reconcileReceipt">Reconcile</button>
             </td>
           </tr>
         </tbody>
@@ -21,6 +22,7 @@
 
 <script lang="ts">
 import axios from "axios";
+import reconcileReceiptModal from './reconcileReceiptModal.vue'
 
 export default {
   props: ["name", "initialEnthusiasm"],
@@ -28,6 +30,9 @@ export default {
     return {
       receipts: []
     };
+  },
+  components: {
+    reconcileReceiptModal
   },
   beforeCreate() {
     const self = this;

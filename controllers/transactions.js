@@ -2,25 +2,55 @@ const db = require('../models');
 const s3 = require('../services/awsService'); //AWS S3 Service
 const moment = require('moment');
 
-function parseDateString(dateString) {
-    const dateStringArray = dateString.split('.');
-    const transDay = dateStringArray[0];
-    const transMonth = dateStringArray[1];
-    const transMonthIndex = parseInt(transMonth) - 1;
-    const transYear = dateStringArray[2];
+function createUpcomingTransactionAndSendResponse(transDate, currentDate, transaction, res, result1) {
+    const nextTransDate = findNextTransactionDate(transDate, currentDate);
+    const nextTransDateString = moment(nextTransDate).format("MM-DD-YYYY");
+    transaction.date = nextTransDateString;
+    transaction.isPaid = false;
+    db.Transaction.create(transaction).then(result2 => {
+        if (result1) {
+            res.json({
+                current: result1,
+                upcoming: result2
+            });
+        }
+        else res.json(result2);
+    });
+}
 
-    const transDate = new Date(transYear, transMonthIndex, transDay);
-    return transDate;
+// Gets next transaction date for monthly recurring transactions
+function findNextTransactionDate(transDate, currentDate) {
+    const nextDate = new Date(moment(transDate).add(1, 'months'));
+    if (nextDate.getTime() < currentDate.getTime()) {
+        return findNextTransactionDate(nextDate, currentDate);
+    }
+    return nextDate;
+}
+
+// Used to mark current transactions for use by front end logic determining which transactions to display in 'Upcoming Bills'
+function isCurrent(transDate) {
+    const transMoment = moment(transDate);
+    const currentMoment = moment();
+    // Check that date is not more than a month in the future
+    if (transMoment.diff(currentMoment.add(1, 'months')) > 0) return false;
+    // Check that date is not in past month unless less than 2 weeks have passed
+    if (transMoment.diff(currentMoment.startOf('month')) < 0 && transMoment.diff(currentMoment.subtract(2, 'weeks')) < 0) return false;
+    return true;
 }
 
 module.exports = {
     create: (req, res) => {
+        let transDateStringWithSlashes;
+        if (req.body.date){
+            const transDateArray = req.body.date.split(".");
+            transDateStringWithSlashes = `${transDateArray[1]}-${transDateArray[0]}-${transDateArray[2]}`
+        }
         const newTrans = {
             userId: req.user.id,
             description: req.body.description || null,
             amount: req.body.amount || null,
             categoryId: req.body.categoryId || null,
-            date: req.body.date || null,
+            date: transDateStringWithSlashes || null,
             isReconciled: req.body.isReconciled || null,
             isPaid: req.body.isPaid || null,
             isRecurring: req.body.isRecurring || null,
@@ -30,41 +60,12 @@ module.exports = {
         }
         db.Transaction.create(newTrans).then(result1 => 
             {
-                // Creates a new upcoming transaction if the transaction is recurring and the date has passed.
-                if (req.body.isRecurring) {
-                    const transDate = parseDateString(req.body.date);
-                    console.log(transDate)
-                    const rightNow = new Date();
-                    // If date has not yet occurred, no further action is necessary
-                    if (transDate.getTime() > rightNow.getTime()) return res.json (result1);
-                    function findNextTransactionDate(transDate, currentDate) {
-                        // console.log(transDate)
-                        // console.log(currentDate)
-                        let nextDate = transDate;
-                        if (transDate.getTime() < currentDate.getTime()) {
-                            nextDate.setMonth(transDate.getMonth() + 1);
-                            // Make sure a month wasn't skipped (e.g. Jan 31 -> March 3)
-                            if (nextDate.getMonth() - transDate.getMonth() > 1) nextDate.setDate(0);
-                            return findNextTransactionDate(nextDate, currentDate);
-                        }
-                        return nextDate;
-                    }
-                    const nextTransDate = findNextTransactionDate(transDate, rightNow);
-                    console.log(nextTransDate);
-                    const nextTransDateString = nextTransDate.getDate() + "." + (nextTransDate.getMonth() + 1) + "." + (nextTransDate.getYear() + 1900);
-                    console.log(nextTransDateString)
-                    const nextTrans = newTrans;
-                    nextTrans.date = nextTransDateString;
-                    nextTrans.isPaid = false;
-                    db.Transaction.create(newTrans).then(result2 => {
-                        res.json({
-                            current: result1,
-                            upcoming: result2
-                        })
-                    });
-                }
-                else res.json(result1);
-            });
+                // Check to see if an upcoming transaction needs to be created (for recurring transactions)
+                if (!newTrans.isRecurring || !newTrans.date) return res.json(result1);
+                if (!newTrans.isPaid && isCurrent(newTrans.date)) return res.json(result1);
+                createUpcomingTransactionAndSendResponse(new Date(newTrans.date), new Date(), newTrans, res, result1);
+            }
+        );
     },
 
     findAll: (req, res) => {
@@ -75,19 +76,14 @@ module.exports = {
             raw: true
         }).then(results => {
             results.forEach(trans => {
-                if (trans.date) { 
-                    trans.parsedDate = parseDateString(trans.date);
-                    console.log(trans.id + "-------------------------------")
-                    console.log(trans.parsedDate.getTime())
-                    console.log(new Date().getTime());
-                    console.log(trans.parsedDate.getTime() < new Date().getTime())
-                    trans.hasHappened = trans.parsedDate.getTime() < new Date().getTime();
-                }
+                // mark current transactions for use by front end logic determining which transactions to display in 'Upcoming Bills'
+                if (trans.date) trans.isCurrent = isCurrent(trans.date);
             });
-            res.json(results)
+            res.json(results);
         });
     },
 
+    // Finds total spent on each transaction category this month.
     getCategoryTotals: (req, res) => {
         let categoryTotals = [];
         for (i = 0; i < 14; i++) categoryTotals.push(0);
@@ -98,12 +94,9 @@ module.exports = {
         }).then(results => {
             results.forEach(transaction => {
                 if (transaction.date) {
-                    const transMonth = transaction.date.slice(3, 5);
-                    const transYear = transaction.date.slice(8);
-                    const thisMonth = ((new Date().getMonth()) + 1).toString();
-                    const thisYear = (new Date().getYear()).toString().slice(1);
-                    // console.log(transYear === thisYear && transYear === thisYear)
-                    if (transYear === thisYear && transMonth === thisMonth && transaction.categoryId) {
+                    const transDate = new Date(transaction.date);
+                    const currentDate = new Date();
+                    if (transDate.getYear() === currentDate.getYear() && transDate.getMonth() === currentDate.getMonth() && transaction.categoryId) {
                         categoryTotals[transaction.categoryId - 1] += parseFloat(transaction.amount);
                     }
                 }
@@ -114,7 +107,7 @@ module.exports = {
 
     update: (req, res) => {
         if (!req.body.id) return res.status(400);
-        const updatedTrans = { }
+        const updatedTrans = {};
         if (req.body.description) updatedTrans.descripion = req.body.description;
         if (req.body.amount) updatedTrans.amount = req.body.amount;
         if (req.body.categoryId) updatedTrans.categoryId = req.body.categoryId;
@@ -127,9 +120,36 @@ module.exports = {
         if (req.body.hasReceipt) updatedTrans.hasReceipt = req.body.hasReceipt;
         db.Transaction.update(updatedTrans, {
             where: {
-                id: req.body.id
+                id: req.body.id,
+                userId: req.user.id
             }
         }).then(result => res.json(result));
+    },
+
+    markPaid: (req, res) => {
+        if (!req.body.id) return res.status(400);
+        const transId = req.body.id;
+        db.Transaction.findOne({
+            where: {
+                id: transId,
+                userId: req.user.id
+            },
+            raw: true
+        }).then(transaction => {
+            if (transaction.isPaid) return res.send("Transaction was already paid. No action taken.");
+            db.Transaction.update(
+                { isPaid: true },
+                {
+                    where: { id: transId }
+                }
+            ).then(result => {
+                if (!transaction.isRecurring || !transaction.date) return res.json(result);
+                const transDate = new Date(transaction.date);
+                const rightNow = new Date();
+                delete transaction.id;
+                createUpcomingTransactionAndSendResponse(transDate, rightNow, transaction, res);
+            });
+        });
     },
 
     createReceipt: (req, res) => {
@@ -151,10 +171,10 @@ module.exports = {
                 isRecurring: false,
                 amount: body.amount || null,
                 categoryId: body.categoryId || null,
-                date: moment().format('D.M.YYYY'),
+                date: moment().format('MM-DD-YYYY'),
             }).then(result => {
                 console.log("post result: " + result);
-                res.json(result)
+                res.json(result);
             });
         }
     }

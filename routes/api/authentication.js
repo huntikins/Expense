@@ -39,6 +39,7 @@ router.get('/user',
     require('connect-ensure-login').ensureLoggedIn('/api/authentication/fail'),
     function(req, res) {
         const user = req.user;
+        // Remove password before sending user info
         const cleanedUser = {
             email: user.email,
             firstname: user.firstname,

@@ -136,7 +136,7 @@ export default {
             const self = this;
             const parsedAmount = parseFloat(this.amount);
             if (this.amount && isNaN(this.amount)) return this.message = "Invalid dollar amount";
-            if (this.amount.indexOf('.') > -1 && this.amount.indexOf('.') < this.amount.length - 3) return this.message = "Invalid dollar amount";
+            if (this.amount && this.amount.indexOf('.') > -1 && this.amount.indexOf('.') < this.amount.length - 3) return this.message = "Invalid dollar amount";
             axios
                 .post('/api/transactions/',
                     {
