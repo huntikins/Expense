@@ -29,7 +29,7 @@ function findNextTransactionDate(transDate, currentDate) {
 
 // Used to mark current transactions for use by front end logic determining which transactions to display in 'Upcoming Bills'
 function isCurrent(transDate) {
-    const transMoment = moment(transDate);
+    const transMoment = moment(new Date(transDate));
     const currentMoment = moment();
     // Check that date is not more than a month in the future
     if (transMoment.diff(currentMoment.add(1, 'months')) > 0) return false;
