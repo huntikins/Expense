@@ -45,7 +45,7 @@ export default {
     axios.get("api/transactions").then(res => {
       console.log("transactions response: " + res.data);
       res.data.forEach(trans => {
-        if (trans.hasReceipt) {
+        if (trans.hasReceipt && !trans.isReconciled) {
           self.receipts.push({
             date: trans.date,
             description: trans.description,

@@ -58,12 +58,12 @@ module.exports = {
             dueDate: req.body.dueDate || null,
             hasReceipt: req.body.hasReceipt || null
         }
-        db.Transaction.create(newTrans).then(result1 => 
+        db.Transaction.create(newTrans).then(result => 
             {
                 // Check to see if an upcoming transaction needs to be created (for recurring transactions)
-                if (!newTrans.isRecurring || !newTrans.date) return res.json(result1);
-                if (!newTrans.isPaid && isCurrent(newTrans.date)) return res.json(result1);
-                createUpcomingTransactionAndSendResponse(new Date(newTrans.date), new Date(), newTrans, res, result1);
+                if (!newTrans.isRecurring || !newTrans.date) return res.json(result);
+                if (!newTrans.isPaid && isCurrent(newTrans.date)) return res.json(result);
+                createUpcomingTransactionAndSendResponse(new Date(newTrans.date), new Date(), newTrans, res, result);
             }
         );
     },
@@ -106,24 +106,53 @@ module.exports = {
     },
 
     update: (req, res) => {
+        // console.log(req.body)
         if (!req.body.id) return res.status(400);
-        const updatedTrans = {};
-        if (req.body.description) updatedTrans.descripion = req.body.description;
-        if (req.body.amount) updatedTrans.amount = req.body.amount;
-        if (req.body.categoryId) updatedTrans.categoryId = req.body.categoryId;
-        if (req.body.date) updatedTrans.date = req.body.date;
-        if (req.body.isReconciled) updatedTrans.isReconciled = req.body.isReconciled;
-        if (req.body.isPaid) updatedTrans.isPaid = req.body.isPaid;
-        if (req.body.isRecurring) updatedTrans.isRecurring = req.body.isRecurring;
-        if (req.body.imageUrl) updatedTrans.imageUrl = req.body.imageUrl;
-        if (req.body.dueDate) updatedTrans.dueDate = req.body.dueDate;
-        if (req.body.hasReceipt) updatedTrans.hasReceipt = req.body.hasReceipt;
-        db.Transaction.update(updatedTrans, {
+        const transactionId = req.body.id;
+        const userId = req.user.id;
+        let transDateStringWithSlashes;
+        if (req.body.date) {
+            const transDateArray = req.body.date.split(".");
+            transDateStringWithSlashes = `${transDateArray[1]}-${transDateArray[0]}-${transDateArray[2]}`
+        }
+        const updatedTrans = {
+            userId,
+            description: req.body.description || null,
+            amount: req.body.amount || null,
+            categoryId: req.body.categoryId || null,
+            date: transDateStringWithSlashes || null,
+            isReconciled: req.body.isReconciled || null,
+            isPaid: req.body.isPaid || null,
+            isRecurring: req.body.isRecurring || null,
+            imageUrl: req.body.imageUrl || null,
+            dueDate: req.body.dueDate || null,
+            hasReceipt: req.body.hasReceipt || null
+        }
+        db.Transaction.findOne({
             where: {
-                id: req.body.id,
-                userId: req.user.id
-            }
-        }).then(result => res.json(result));
+                id: transactionId,
+                userId
+            },
+            raw: true
+        }).then(result1 => {
+            console.log("\n\n");
+            console.log(result1);
+            console.log("\n");
+            const wasRecurring = result1.isRecurring;
+            db.Transaction.update(updatedTrans, {
+                where: {
+                    id: transactionId,
+                    userId
+                }
+            }).then(result2 => {
+                console.log("\n\n")
+                console.log(result2)
+                // Check to see if an upcoming transaction needs to be created (for recurring transactions)
+                if (!updatedTrans.isRecurring || wasRecurring || !updatedTrans.date) return res.json(result2);
+                if (!updatedTrans.isPaid && isCurrent(updatedTrans.date)) return res.json(result2);
+                createUpcomingTransactionAndSendResponse(new Date(updatedTrans.date), new Date(), updatedTrans, res, result2);
+            });
+        });
     },
 
     markPaid: (req, res) => {

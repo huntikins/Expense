@@ -152,7 +152,7 @@ export default {
                     self.description = null;
                     self.isRecurring = false;
                     self.isPaid = false;
-                    self.selectedCategoryId = null;
+                    self.selectedCategoryId = "";
                     self.selectedDate = null;
                     self.amount = null;
                     location.reload();

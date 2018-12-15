@@ -13,6 +13,7 @@
                         <div class="row">
                             <div class="col">
                                 <h3 v-if="transaction.description">{{ transaction.description }}</h3>
+                                <h4>{{ transaction.date }}</h4>
                                 <img :src="transaction.imageUrl" id="receiptImg" alt="receipt">
                                 <hr>
                                 <h5>Tell us a bit about your transaction</h5>
@@ -21,7 +22,7 @@
                                         <input type="text" v-model="amount" class="form-control my-1" placeholder="Enter transaction amount">
                                         <input type="text" v-model="description" class="form-control my-1" id="transTitle" aria-describedby="transactionTitle" placeholder="Where did you spend your money?">
                                         <select v-model="selectedCategoryId" class="custom-select my-1" id="inlineFormCustomSelect">
-                                            <option disabled value='0'>What did you spend your money on?</option>
+                                            <option disabled value="">What did you spend your money on?</option>
                                             <option :key="category.id"
                                                     v-for="category in categories"
                                                     :value="category.id">
@@ -33,10 +34,6 @@
                                         <div class="form-check my-2">
                                             <input v-model="isRecurring" class="form-check-input" type="checkbox" value="" id="defaultCheck1">
                                             <label class="form-check-label" for="defaultCheck1">Is this a recurring transaction?</label>
-                                        </div>
-                                        <div class="form-check my-2">
-                                            <input v-model="isPaid" class="form-check-input" type="checkbox" value="" id="defaultCheck2">
-                                            <label class="form-check-label" for="defaultCheck2">Have you already paid for this transaction?</label>
                                         </div>
                                         <span id="message">{{ message }}</span>
                                     </div>
@@ -65,12 +62,11 @@ export default {
     data () {
         return {
             description: null,
-            selectedCategoryId: null,
+            selectedCategoryId: "",
             selectedDate: null,
             isRecurring: false,
             amount: null,
             message: null,
-            isPaid: false,
             categories: [
                 {
                 name:'Rent/Mortgage',
@@ -142,21 +138,24 @@ export default {
             if (this.amount && isNaN(this.amount)) return this.message = "Invalid dollar amount";
             if (this.amount && this.amount.indexOf('.') > -1 && this.amount.indexOf('.') < this.amount.length - 3) return this.message = "Invalid dollar amount";
             axios
-                .post('/api/transactions/',
+                .put('/api/transactions/',
                     {
-                        description: self.description,
+                        description: self.description || self.transaction.description,
                         isRecurring: self.isRecurring,
                         categoryId: self.selectedCategoryId,
                         date: self.selectedDate,
                         amount: parsedAmount,
-                        isPaid: self.isPaid
+                        isPaid: true,
+                        isReconciled: true,
+                        imageUrl: self.transaction.imageUrl,
+                        id: self.transaction.id
                     })
                 .then(res => {
                     console.log(res)
                     self.description = null;
                     self.isRecurring = false;
-                    self.isPaid = false;
-                    self.selectedCategoryId = null;
+                    self.isPaid = true;
+                    self.selectedCategoryId = "";
                     self.selectedDate = null;
                     self.amount = null;
                     location.reload();
