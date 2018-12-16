@@ -1,9 +1,9 @@
 <template>
-     <div name="trans-modal" class="modal fade" ref='createTransModal' id="createTrans" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div name="reconcile-modal" class="modal fade" ref='reconcileReceiptModal' id="reconcileReceipt" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Create Transaction</h5>
+                    <h5 class="modal-title">Reconcile Receipt</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <a aria-hidden="true">&times;</a>
                     </button>
@@ -12,6 +12,10 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col">
+                                <h3 v-if="transaction.description">{{ transaction.description }}</h3>
+                                <h4>{{ transaction.date }}</h4>
+                                <img :src="transaction.imageUrl" id="receiptImg" alt="receipt">
+                                <hr>
                                 <h5>Tell us a bit about your transaction</h5>
                                 <form>
                                     <div class="form-group text-left">
@@ -30,10 +34,6 @@
                                         <div class="form-check my-2">
                                             <input v-model="isRecurring" class="form-check-input" type="checkbox" value="" id="defaultCheck1">
                                             <label class="form-check-label" for="defaultCheck1">Is this a recurring transaction?</label>
-                                        </div>
-                                        <div class="form-check my-2">
-                                            <input v-model="isPaid" class="form-check-input" type="checkbox" value="" id="defaultCheck2">
-                                            <label class="form-check-label" for="defaultCheck2">Have you already paid for this transaction?</label>
                                         </div>
                                         <span id="message">{{ message }}</span>
                                     </div>
@@ -58,6 +58,7 @@ export default {
     components: {
         DateDropdown
     },
+    props: ['transaction'],
     data () {
         return {
             description: null,
@@ -66,69 +67,68 @@ export default {
             isRecurring: false,
             amount: null,
             message: null,
-            isPaid: false,
             categories: [
-            {
-            name:'Rent/Mortgage',
-            id: 1
-            },
-            {
-            name:'Utilities',
-            id: 2
-            },
-            {
-            name:'Entertainment',
-            id: 3
-            },
-            {
-            name:'Misc. Food',
-            id: 4
-            },
-            {
-            name:'Groceries',
-            id: 5
-            },
-            {
-            name:'Gas',
-            id: 6
-            },
-            {
-            name:'Mobile',
-            id: 7
-            },
-            {
-            name:'Subscriptions',
-            id: 8
-            },
-            {
-            name:'Clothing',
-            id: 9
-            },
-            {
-            name:'Charity',
-            id: 10
-            },
-            {
-            name:'Leisure',
-            id: 11
-            },
-            {
-            name:'Health',
-            id: 12
-            },
-            {
-            name:'Credit Card/Loan',
-            id: 13
-            },
-            {
-            name:'Deposit',
-            id: 14
-            },
-            {
-            name:'Withdrawal',
-            id: 15
-            }
-        ],
+                {
+                name:'Rent/Mortgage',
+                id: 1
+                },
+                {
+                name:'Utilities',
+                id: 2
+                },
+                {
+                name:'Entertainment',
+                id: 3
+                },
+                {
+                name:'Misc. Food',
+                id: 4
+                },
+                {
+                name:'Groceries',
+                id: 5
+                },
+                {
+                name:'Gas',
+                id: 6
+                },
+                {
+                name:'Mobile',
+                id: 7
+                },
+                {
+                name:'Subscriptions',
+                id: 8
+                },
+                {
+                name:'Clothing',
+                id: 9
+                },
+                {
+                name:'Charity',
+                id: 10
+                },
+                {
+                name:'Leisure',
+                id: 11
+                },
+                {
+                name:'Health',
+                id: 12
+                },
+                {
+                name:'Credit Card/Loan',
+                id: 13
+                },
+                {
+                name:'Deposit',
+                id: 14
+                },
+                {
+                name:'Withdrawal',
+                id: 15
+                }
+            ]
         }
     },
     methods: {
@@ -138,26 +138,28 @@ export default {
             if (this.amount && isNaN(this.amount)) return this.message = "Invalid dollar amount";
             if (this.amount && this.amount.indexOf('.') > -1 && this.amount.indexOf('.') < this.amount.length - 3) return this.message = "Invalid dollar amount";
             axios
-                .post('/api/transactions/',
+                .put('/api/transactions/',
                     {
-                        description: self.description,
+                        description: self.description || self.transaction.description,
                         isRecurring: self.isRecurring,
                         categoryId: self.selectedCategoryId,
                         date: self.selectedDate,
                         amount: parsedAmount,
-                        isPaid: self.isPaid
+                        isPaid: true,
+                        isReconciled: true,
+                        imageUrl: self.transaction.imageUrl,
+                        id: self.transaction.id
                     })
                 .then(res => {
                     // console.log(res)
                     self.description = null;
                     self.isRecurring = false;
-                    self.isPaid = false;
+                    self.isPaid = true;
                     self.selectedCategoryId = "";
                     self.selectedDate = null;
                     self.amount = null;
                     location.reload();
                 });
-            // this.$refs.createTransModal.hide();
         }
     }
 }
@@ -166,5 +168,11 @@ export default {
 <style>
 #message {
     color: red;
+}
+
+#receiptImg {
+    width: 85%;
+    max-width: 300px;
+    height: auto;
 }
 </style>

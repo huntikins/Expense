@@ -58,14 +58,16 @@ export default {
           lastname: this.lastname
         })
         .then(res => {
-          self.message = res.data;
+          // console.log(res);
+          self.message = res.data.message;
+          if (!res.data.success) return;
           axios
           .post("/api/authentication/login", {
             email: this.email,
             password: this.password
           })
           .then(res => {
-            console.log(res);
+            // console.log(res);
             if (res.data === true) {
               self.$router.push('/dashboard');
             }

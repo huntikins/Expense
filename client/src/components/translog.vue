@@ -15,7 +15,8 @@
                 <td>{{ trans.price }}</td>
                 <td>{{ trans.date }}</td>
                 <td>
-                    <a v-if="trans.receipt == true" :href="trans.receiptUrl"><i class="fas fa-receipt"></i></a>
+                    <!-- https://stackoverflow.com/questions/15551779/open-link-in-new-tab-or-window -->
+                    <a v-if="trans.receipt == true" :href="trans.receiptUrl" target="_blank" rel="noopener noreferrer"><i class="fas fa-receipt"></i></a>
                     <span v-else>none</span>
                 </td>
                 <!-- <td v-if="update==true"><input type="checkbox"></td> -->
@@ -76,17 +77,17 @@ export default {
             .get('/api/transactions')
             .then(res => {
                 console.log(res)
-            self.transactions = [];
-            res.data.forEach(transaction => {
-                self.transactions.push({
-                    title: transaction.description,
-                    price: transaction.amount,
-                    date: transaction.date,
-                    receipt: transaction.hasReceipt,
-                    receiptUrl: transaction.imageUrl
+                self.transactions = [];
+                res.data.forEach(transaction => {
+                    self.transactions.push({
+                        title: transaction.description,
+                        price: transaction.amount,
+                        date: transaction.date,
+                        receipt: transaction.hasReceipt,
+                        receiptUrl: transaction.imageUrl
+                    });
                 });
             });
-        });
     }
 }
 </script>

@@ -18,6 +18,11 @@ router.put('/',
     transactionsController.update
 );
 
+router.put('/markPaid',
+    require('connect-ensure-login').ensureLoggedIn('/api/authentication/fail'),
+    transactionsController.markPaid
+);
+
 router.post('/newReceipt',
     require('connect-ensure-login').ensureLoggedIn('/api/authentication/fail'),
     transactionsController.createReceipt

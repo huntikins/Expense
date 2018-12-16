@@ -3,7 +3,6 @@
         <input class="form-control mr-sm-2" v-model="email" type="email" placeholder="email" aria-label="email">
         <input class="form-control mr-sm-2" v-model="password" type="password" placeholder="Password" aria-label="Password">
         <button class="btn btn-outline-success my-2 my-sm-0" @click="submitLogin" type="submit">Sign in</button>
-        <button class="btn btn-outline-success my-2 my-sm-0" @click="testLogin">TEST</button>
         <span v-if="message" id="message"><br>{{ message }}</span>
     </form>
 </template>
@@ -24,7 +23,7 @@ export default {
           password: this.password
         })
         .then(res => {
-          console.log(res);
+          // console.log(res);
           if (res.data === true) {
             self.$router.push('/dashboard');
           }
@@ -41,7 +40,7 @@ export default {
           amount: 200.2
         })
         .then(res => {
-          console.log(res);
+          // console.log(res);
           if (res.data === true) {
             self.$router.push('/');
           }

@@ -90,7 +90,7 @@ export default {
     axios
     .get("/api/budget")
     .then(res => {
-        console.log(res.data)
+        // console.log(res.data)
         this.budgets= []
         this.categories= [
               {
@@ -158,10 +158,10 @@ export default {
           let limit = parseInt(budget.amount)
           let category = parseInt(budget.categoryId)
           let type = this.categories[category -1].name
-          console.log(type, category, limit)
+          // console.log(type, category, limit)
           axios.get("/api/budget/category-totals").then( res=> {
-            console.log(res.data)
-            console.log(type, category, limit)
+            // console.log(res.data)
+            // console.log(type, category, limit)
             let total = parseInt(res.data[category -1])
             let current = limit - total
             if(current < 0){
@@ -174,7 +174,7 @@ export default {
             })
           })
         })
-        console.log(this.budgets)
+        // console.log(this.budgets)
     }).catch(err => console.error(err))
   },
 };
