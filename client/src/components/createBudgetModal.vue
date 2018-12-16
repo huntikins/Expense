@@ -124,7 +124,7 @@ export default {
                 categoryId: categoryId,
                 amount: ammount
             }).then(res => {
-                console.log(res);
+                // console.log(res);
                 if (res.data === true) {
                     this.$router.push('/');
                 }

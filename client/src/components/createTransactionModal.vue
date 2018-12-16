@@ -148,7 +148,7 @@ export default {
                         isPaid: self.isPaid
                     })
                 .then(res => {
-                    console.log(res)
+                    // console.log(res)
                     self.description = null;
                     self.isRecurring = false;
                     self.isPaid = false;

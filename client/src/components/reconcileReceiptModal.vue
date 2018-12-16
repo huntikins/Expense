@@ -151,7 +151,7 @@ export default {
                         id: self.transaction.id
                     })
                 .then(res => {
-                    console.log(res)
+                    // console.log(res)
                     self.description = null;
                     self.isRecurring = false;
                     self.isPaid = true;

@@ -77,17 +77,17 @@ export default {
             .get('/api/transactions')
             .then(res => {
                 console.log(res)
-            self.transactions = [];
-            res.data.forEach(transaction => {
-                self.transactions.push({
-                    title: transaction.description,
-                    price: transaction.amount,
-                    date: transaction.date,
-                    receipt: transaction.hasReceipt,
-                    receiptUrl: transaction.imageUrl
+                self.transactions = [];
+                res.data.forEach(transaction => {
+                    self.transactions.push({
+                        title: transaction.description,
+                        price: transaction.amount,
+                        date: transaction.date,
+                        receipt: transaction.hasReceipt,
+                        receiptUrl: transaction.imageUrl
+                    });
                 });
             });
-        });
     }
 }
 </script>

@@ -23,7 +23,7 @@ export default {
           password: this.password
         })
         .then(res => {
-          console.log(res);
+          // console.log(res);
           if (res.data === true) {
             self.$router.push('/dashboard');
           }
@@ -40,7 +40,7 @@ export default {
           amount: 200.2
         })
         .then(res => {
-          console.log(res);
+          // console.log(res);
           if (res.data === true) {
             self.$router.push('/');
           }

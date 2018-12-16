@@ -5,10 +5,10 @@ require('../../controllers/passport');
 
 router.post('/signup', (req, res) => {
     userController.createUser(req.body, (success, message) => {
-        let response = "New user was ";
-        response = success ? "Success! " + response : response + "not ";
-        response += "created. ";
-        if (message) response += message;
+        let response = { message: "New user was ", success };
+        response.message = success ? "Success! " + response.message : response.message + "not ";
+        response.message += "created. ";
+        if (message) response.message += message;
         res.send(response);
     });
 });

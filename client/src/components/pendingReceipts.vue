@@ -43,7 +43,7 @@ export default {
   beforeCreate() {
     const self = this;
     axios.get("api/transactions").then(res => {
-      console.log("transactions response: " + res.data);
+      // console.log("transactions response: " + res.data);
       res.data.forEach(trans => {
         if (trans.hasReceipt && !trans.isReconciled) {
           self.receipts.push({

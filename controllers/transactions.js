@@ -2,8 +2,8 @@ const db = require('../models');
 const s3 = require('../services/awsService'); //AWS S3 Service
 const moment = require('moment');
 
-function createUpcomingTransactionAndSendResponse(transDate, currentDate, transaction, res, result1) {
-    const nextTransDate = findNextTransactionDate(transDate, currentDate);
+function createUpcomingTransactionAndSendResponse(transDate, transaction, res, result1) {
+    const nextTransDate = findNextTransactionDate(transDate);
     const nextTransDateString = moment(nextTransDate).format("MM-DD-YYYY");
     transaction.date = nextTransDateString;
     transaction.isPaid = false;
@@ -19,10 +19,11 @@ function createUpcomingTransactionAndSendResponse(transDate, currentDate, transa
 }
 
 // Gets next transaction date for monthly recurring transactions
-function findNextTransactionDate(transDate, currentDate) {
+function findNextTransactionDate(transDate) {
+    console.log(transDate)
     const nextDate = new Date(moment(transDate).add(1, 'months'));
-    if (nextDate.getTime() < currentDate.getTime()) {
-        return findNextTransactionDate(nextDate, currentDate);
+    if (!isCurrent(nextDate) && nextDate.getTime() < new Date().getTime()) {
+        return findNextTransactionDate(nextDate);
     }
     return nextDate;
 }
@@ -30,11 +31,10 @@ function findNextTransactionDate(transDate, currentDate) {
 // Used to mark current transactions for use by front end logic determining which transactions to display in 'Upcoming Bills'
 function isCurrent(transDate) {
     const transMoment = moment(new Date(transDate));
-    const currentMoment = moment();
     // Check that date is not more than a month in the future
-    if (transMoment.diff(currentMoment.add(1, 'months')) > 0) return false;
+    if (transMoment.diff(moment().add(1, 'months')) > 0) return false;
     // Check that date is not in past month unless less than 2 weeks have passed
-    if (transMoment.diff(currentMoment.startOf('month')) < 0 && transMoment.diff(currentMoment.subtract(2, 'weeks')) < 0) return false;
+    if (transMoment.diff(moment().startOf('month')) < 0 && transMoment.diff(moment().subtract(2, 'weeks')) < 0) return false;
     return true;
 }
 
@@ -63,7 +63,7 @@ module.exports = {
                 // Check to see if an upcoming transaction needs to be created (for recurring transactions)
                 if (!newTrans.isRecurring || !newTrans.date) return res.json(result);
                 if (!newTrans.isPaid && isCurrent(newTrans.date)) return res.json(result);
-                createUpcomingTransactionAndSendResponse(new Date(newTrans.date), new Date(), newTrans, res, result);
+                createUpcomingTransactionAndSendResponse(new Date(newTrans.date), newTrans, res, result);
             }
         );
     },
@@ -150,7 +150,7 @@ module.exports = {
                 // Check to see if an upcoming transaction needs to be created (for recurring transactions)
                 if (!updatedTrans.isRecurring || wasRecurring || !updatedTrans.date) return res.json(result2);
                 if (!updatedTrans.isPaid && isCurrent(updatedTrans.date)) return res.json(result2);
-                createUpcomingTransactionAndSendResponse(new Date(updatedTrans.date), new Date(), updatedTrans, res, result2);
+                createUpcomingTransactionAndSendResponse(new Date(updatedTrans.date), updatedTrans, res, result2);
             });
         });
     },
@@ -173,10 +173,8 @@ module.exports = {
                 }
             ).then(result => {
                 if (!transaction.isRecurring || !transaction.date) return res.json(result);
-                const transDate = new Date(transaction.date);
-                const rightNow = new Date();
                 delete transaction.id;
-                createUpcomingTransactionAndSendResponse(transDate, rightNow, transaction, res);
+                createUpcomingTransactionAndSendResponse(new Date(transaction.date), transaction, res, result);
             });
         });
     },

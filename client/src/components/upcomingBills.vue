@@ -36,7 +36,7 @@ export default {
         }
     },
     beforeCreate(){
-        console.log("beforeCreate()")
+        // console.log("beforeCreate()")
         axios.get('/api/transactions').then(res => {
             this.upcomingBills = [];
             res.data.forEach(transaction => {

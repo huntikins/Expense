@@ -17,21 +17,11 @@ export default {
       axios
         .post("/api/authentication/logout")
         .then(res => {
-          console.log(res);
+          // console.log(res);
           if (res.data === true) {
             self.$router.push('/');
           }
           self.message = res.data;
-        })
-        .catch(err => console.error(err));
-    },
-    testLogin: function(event) {
-      event.preventDefault();
-      const self = this;
-      axios
-        .get("/api/budget/category-totals")
-        .then(res => {
-          console.log(res);
         })
         .catch(err => console.error(err));
     }
