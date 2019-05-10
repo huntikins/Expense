@@ -57,12 +57,13 @@ export default {
       }
       apiCall()
         .then(res => {
-          // console.log(res);
+          console.log(res);
           if (res.data && res.data.success) {
             self.message = 'Success! You are logged in.';
             self.hasSuccess = true;
-            self.$router.push('/dashboard');
+            return self.$router.push('/dashboard');
           }
+          self.message = res.data;
         })
         .catch(err => console.error(err));
     }
