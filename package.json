@@ -6,7 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "dev": "cd client && yarn serve"
+    "dev": "cd client && yarn serve",
+    "build": "cd client && yarn build",
+    "heroku-postbuild": "yarn build",
+    "install": "cd client && yarn install"
   },
   "repository": {
     "type": "git",
