@@ -16,7 +16,7 @@
                 </div>
                 <div class="col-lg-4">
                     <h2 class="header">Join us!</h2>
-                    <p>Sign up for free and get ready to watch your wallet reach to new hights!</p>
+                    <p>Sign up for free and get ready to watch your wallet reach to new heights!</p>
                     <router-link to="/create-account"><button class="btn btn-outline-success my-2 my-sm-0" type="submit">Create Account</button></router-link>
                 </div>
                 <div class="col-lg-4">

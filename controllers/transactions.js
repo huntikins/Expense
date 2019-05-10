@@ -117,16 +117,16 @@ module.exports = {
         }
         const updatedTrans = {
             userId,
-            description: req.body.description || null,
-            amount: req.body.amount || null,
-            categoryId: req.body.categoryId || null,
-            date: transDateStringWithSlashes || null,
-            isReconciled: req.body.isReconciled || null,
-            isPaid: req.body.isPaid || null,
-            isRecurring: req.body.isRecurring || null,
-            imageUrl: req.body.imageUrl || null,
-            dueDate: req.body.dueDate || null,
-            hasReceipt: req.body.hasReceipt || null
+            description: req.body.description || undefined,
+            amount: req.body.amount || undefined,
+            categoryId: req.body.categoryId || undefined,
+            date: transDateStringWithSlashes || undefined,
+            isReconciled: req.body.isReconciled || undefined,
+            isPaid: req.body.isPaid || undefined,
+            isRecurring: req.body.isRecurring || undefined,
+            imageUrl: req.body.imageUrl || undefined,
+            dueDate: req.body.dueDate || undefined,
+            hasReceipt: req.body.hasReceipt || undefined
         }
         db.Transaction.findOne({
             where: {

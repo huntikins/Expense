@@ -1,6 +1,6 @@
 <template>
   <div class="content-frame">
-    <navbar isLoggedIn="true" :userEmail="userEmail"></navbar>
+    <navbar :isLoggedIn="true" :userEmail="userEmail"></navbar>
     <div id="main">
       <dashboardframe :userFirstname="userFirstname"></dashboardframe>
     </div>
@@ -31,6 +31,9 @@ export default {
       .then(res => {
         self.userEmail = res.data.email || '';
         self.userFirstname = res.data.firstname || '';
+      })
+      .catch(err => {
+        if (err && err.response && err.response.status === 401) self.$router.push('/');
       });
   }
 }

@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const serverConfig = require('./config/server');
 const server = serverConfig.server;
 const PORT = serverConfig.PORT;
