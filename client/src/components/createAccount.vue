@@ -68,10 +68,10 @@ export default {
           })
           .then(res => {
             // console.log(res);
-            if (res.data === true) {
+            if (res.data && res.data.success) {
               self.$router.push('/dashboard');
             }
-            self.message = res.data;
+            self.message = res.data.message || 'Unknown issue.';
           })
           .catch(err => console.error(err));
         })
