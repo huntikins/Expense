@@ -1,6 +1,6 @@
 const router = require('express').Router(); // eslint-disable-line new-cap
 const userController = require('../../controllers/authentication');
-require('../../config/server');
+const { passport } = require('../../config/server');
 require('../../controllers/passport');
 
 router.post('/signup', (req, res) => {
@@ -14,10 +14,25 @@ router.post('/signup', (req, res) => {
 });
 
 router.post('/login',
-    require('../../config/server').passport.authenticate('local', { failureRedirect: '/api/authentication/fail', failureFlash: true }),
+    passport.authenticate('local', { failureRedirect: '/api/authentication/fail', failureFlash: true }),
     function(req, res) {
-        res.send(true);
+        console.log(req)
+        res.send({ success: true, message: 'Successful authentication.' });
     }
+);
+
+router.post(
+    '/guest-login',
+    (req, res, next) => {
+        console.log('\n---------------------------------\n')
+        req.body = {
+            email: 'nobody@fakemail.org',
+            password: process.env.GUEST_PASSWORD
+        };
+        next();
+    },
+    passport.authenticate('local', { failureRedirect: '/api/auth/fail', failureFlash: true }),
+    (req, res) => res.json({ success: true, message: 'Successful authentication.' })
 );
 
 router.get('/fail', (req, res) => {

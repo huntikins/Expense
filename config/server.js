@@ -1,6 +1,5 @@
 const express = require('express');
 const passport = require('passport');
-const dotenv = require('dotenv');
 
 // const db = require('./models');
 // Run passport configuration
@@ -16,8 +15,9 @@ const server = express();
 passportConfig.configureMiddleware(server);
 server.use(express.urlencoded({ extended: true }));
 server.use(express.json({ limit: '50mb' }));
-server.use(express.static('client/dist'));
 // server.use(express.bodyParser({ limit: '50mb' }));
+server.use(require('connect-history-api-fallback')());
+server.use(express.static('client/dist'));
 
 const syncOptions = { force: false };
 

@@ -24,8 +24,8 @@
                     <label for="confirm-password">Confirm Password</label>
                     <input type="password" class="form-control" id="confirm-password" v-model="confirmPassword" placeholder="Confirm password..." required>
                 </div>
-                <button @click="submitNewUser" type="submit" class="btn btn-outline-success my-2 my-sm-0">Submit</button>
                 <p v-if="message" id="message">{{ message }}</p>
+                <button @click="submitNewUser" type="submit" class="btn btn-outline-success my-2 my-sm-0">Submit</button>
             </form>
         </div>
     </div>
@@ -68,10 +68,10 @@ export default {
           })
           .then(res => {
             // console.log(res);
-            if (res.data === true) {
+            if (res.data && res.data.success) {
               self.$router.push('/dashboard');
             }
-            self.message = res.data;
+            self.message = res.data.message || 'Unknown issue.';
           })
           .catch(err => console.error(err));
         })

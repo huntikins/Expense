@@ -3,20 +3,22 @@
         <thead>
             <tr>
                 <th scope="col">Transaction</th>
-                <th scope="col">Ammount</th>
+                <th scope="col">Amount</th>
                 <th scope="col">Date</th>
                 <th scope="col">Receipt</th>
                 <!-- <th v-if="update==true">Select</th> -->
             </tr>
         </thead>
         <tbody>
-            <tr v-for="trans in transactions">
+            <tr v-for="trans in transactions" :key="trans.id">
                 <th scope="row">{{ trans.title }}</th>
                 <td>{{ trans.price }}</td>
                 <td>{{ trans.date }}</td>
                 <td>
                     <!-- https://stackoverflow.com/questions/15551779/open-link-in-new-tab-or-window -->
-                    <a v-if="trans.receipt == true" :href="trans.receiptUrl" target="_blank" rel="noopener noreferrer"><i class="fas fa-receipt"></i></a>
+                    <a v-if="trans.receipt == true" :href="trans.receiptUrl" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-receipt"></i>
+                    </a>
                     <span v-else>none</span>
                 </td>
                 <!-- <td v-if="update==true"><input type="checkbox"></td> -->

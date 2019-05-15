@@ -5,11 +5,11 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-    <span v-if="isLoggedIn === 'true'">
+    <span v-if="isLoggedIn">
       <logout-form :userEmail="userEmail"></logout-form>
     </span>
     <span v-else>
-      <login-form></login-form>
+      <login-form :is-guest="isGuest"></login-form>
     </span>
     </div>
   </nav>
@@ -20,11 +20,11 @@ import loginForm from './loginForm';
 import logoutForm from './logoutForm';
 
 export default {
+  props: ['isLoggedIn', 'userEmail', 'isGuest'],
   components: {
     loginForm,
     logoutForm
-  },
-  props: ['isLoggedIn', 'userEmail']
+  }
 };
 </script>
 
